@@ -1,9 +1,9 @@
-// src/controllers/ProfileController.ts
 import express, { Response } from 'express';
 import multer from 'multer';
 import path from 'path';
+import { AppDataSource } from '../../config/data-source';
 import { CustomRequest, verifyToken } from '../../middlewares/Authmidlewares/IsAuthenticated';
-import User from '../../models/Users';
+import { User } from '../../models/User';
 
 export const ProfileController = express.Router();
 
@@ -21,11 +21,21 @@ const upload = multer({ storage });
 // Get user profile
 ProfileController.get('/', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
     try {
-        const user = await User.findByPk(req.user!.id, { attributes: { exclude: ['password'] } });
+        const userRepository = AppDataSource.getRepository(User);
+
+        // Ensure that id is treated as a number
+        const userId = parseInt(req.user!.id as string, 10);
+
+        const user = await userRepository.findOne({
+            where: { id: userId },
+            select: ['id', 'name', 'email', 'profilePhoto'],
+        });
+
         if (!user) {
             res.status(404).json({ message: 'User not found' });
             return;
         }
+
         res.json(user);
     } catch (error) {
         console.error(error);
@@ -36,23 +46,26 @@ ProfileController.get('/', verifyToken, async (req: CustomRequest, res: Response
 // Update user profile (with optional profile photo)
 ProfileController.put('/', verifyToken, upload.single('profilePhoto'), async (req: CustomRequest, res: Response) => {
     try {
+        const userRepository = AppDataSource.getRepository(User);
         const { name, email } = req.body;
         const profilePhoto = req.file ? req.file.path : undefined;
 
-        const updatedData: Partial<{ name: string; email: string; profilePhoto: string }> = { name, email };
+        // Prepare update data
+        const updatedData: Partial<User> = { name, email }; // Ensure this matches User type
         if (profilePhoto) updatedData.profilePhoto = profilePhoto;
 
-        const [affectedCount, updatedUsers] = await User.update(updatedData, {
-            where: { id: req.user!.id },
-            returning: true,
-        });
+        // Ensure that id is treated as a number
+        const userId = parseInt(req.user!.id as string, 10);
 
-        if (affectedCount === 0) {
+        // Update user
+        const result = await userRepository.update(userId, updatedData);
+        if (result.affected === 0) {
             res.status(404).json({ message: 'User not found' });
             return;
         }
 
-        res.json(updatedUsers[0]); // Return the updated user data
+        const updatedUser = await userRepository.findOneBy({ id: userId });
+        res.json(updatedUser);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
@@ -62,7 +75,18 @@ ProfileController.put('/', verifyToken, upload.single('profilePhoto'), async (re
 // Delete user profile
 ProfileController.delete('/', verifyToken, async (req: CustomRequest, res: Response) => {
     try {
-        await User.destroy({ where: { id: req.user!.id } });
+        const userRepository = AppDataSource.getRepository(User);
+
+        // Ensure that id is treated as a number
+        const userId = parseInt(req.user!.id as string, 10);
+
+        const deleteResult = await userRepository.delete(userId);
+
+        if (deleteResult.affected === 0) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+
         res.json({ message: 'User deleted successfully' });
     } catch (error) {
         console.error(error);

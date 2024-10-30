@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Plant from './Plant';
 
 @Entity()
 export class User {
@@ -14,11 +15,11 @@ export class User {
     @Column()
     password!: string;
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt!: Date;
+    @Column({ nullable: true }) // Make profile photo optional
+    profilePhoto?: string; // Add this line
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-    updatedAt!: Date;
+    @OneToMany(() => Plant, (plant) => plant.user)
+    plants!: Plant[];
 }
 
 export default User;
