@@ -1,12 +1,21 @@
 import express from "express";
+import http from "http";
 import "reflect-metadata";
+import { Server } from "socket.io";
 import { AppDataSource } from "../src/config/data-source";
+import { verifyToken } from "./middlewares/Authmidlewares/IsAuthenticated";
+import { Message } from "./models/Message";
 import mainRoute from "./routes/main";
 
 
 const app = express();
 
 app.use(express.json());
+
+app.use('/uploads', express.static('uploads'));
+
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Test database connection
 AppDataSource.initialize()
@@ -20,6 +29,89 @@ AppDataSource.initialize()
     .catch((err) => {
         console.error("Error during Data Source initialization:", err);
     });
+
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+const activeUsers = new Map<number, string>();
+
+
+async function getUserSocketId(userId: number): Promise<string | null> {
+    return activeUsers.get(userId) || null;
+}
+
+io.use(verifyToken);
+
+
+io.on('connection', (socket) => {
+    console.log(`User connected: ${socket.id}`);
+
+
+    const userId = socket.handshake.auth.userId;
+    if (userId) {
+        activeUsers.set(userId, socket.id);
+    }
+
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log(`User ${socket.id} joined room ${roomId}`);
+    });
+
+
+    socket.on('sendMessageToRoom', async (data) => {
+        const { roomId, message, userId } = data;
+
+        try {
+
+            const messageRepository = AppDataSource.getRepository(Message);
+            const newMessage = messageRepository.create({
+                content: message,
+                masageuser: { id: userId },
+                room: { id: roomId }
+            });
+            await messageRepository.save(newMessage);
+
+
+            io.to(roomId).emit('receiveMessageFromRoom', {
+                message: newMessage.content,
+                userId: newMessage.masageuser.id,
+                roomId: newMessage.room.id,
+                createdAt: newMessage.createdAt,
+            });
+            console.log(`Message sent to room ${roomId}: ${message}`);
+        } catch (error) {
+            console.error('Error saving message:', error);
+            socket.emit('error', 'Could not send message');
+        }
+    });
+
+
+    socket.on('sendPrivateMessage', async (data) => {
+        const { recipientId, message, senderId } = data;
+        const recipientSocketId = await getUserSocketId(recipientId);
+
+        if (recipientSocketId) {
+            io.to(recipientSocketId).emit('receivePrivateMessage', { senderId, message });
+        }
+    });
+
+
+    socket.on('disconnect', () => {
+        console.log(`User disconnected: ${socket.id}`);
+        if (userId) {
+            activeUsers.delete(userId);
+        }
+    });
+});
+
+export { io };
 
 
 app.use('/api/v1', mainRoute);

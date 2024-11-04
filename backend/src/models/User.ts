@@ -1,6 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Plant from './Plant';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import CareReminder from './careReminder';
+import { Comment } from './Comment';
+import { Message } from './Message';
+import Plant from './Plant';
+import { Post } from './Post';
+import { Room } from './Room';
 
 @Entity()
 export class User {
@@ -16,8 +20,8 @@ export class User {
     @Column()
     password!: string;
 
-    @Column({ nullable: true }) // Make profile photo optional
-    profilePhoto?: string; // Add this line
+    @Column({ nullable: true })
+    profilePhoto?: string;
 
     @OneToMany(() => Plant, (plant) => plant.user)
     plants!: Plant[];
@@ -25,6 +29,25 @@ export class User {
     @OneToMany(() => CareReminder, (reminder) => reminder.user)
     reminders!: CareReminder[];
     careReminder: any;
+
+
+    @OneToMany(() => Post, (post) => post.author)
+    posts!: Post[];
+
+    @OneToMany(() => Comment, (comment) => comment.author)
+    comments!: Comment[];
+
+    @ManyToMany(() => Room, (room) => room.users)
+    rooms!: Room[];
+
+    @OneToMany(() => Message, (message) => message.sender)
+    sentMessages!: Message[];
+
+    @OneToMany(() => Message, (message) => message.recipient)
+    receivedMessages!: Message[];
+
+    @OneToMany(() => Message, (message) => message.user)
+    messages!: Message[];
 }
 
 export default User;

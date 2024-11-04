@@ -15,36 +15,34 @@ RegistrationController.post('/', async (req: Request, res: Response): Promise<vo
     try {
         const userRepository = AppDataSource.getRepository(User);
 
-        // Check if user already exists
+
         const existingUser = await userRepository.findOne({ where: { email } });
         if (existingUser) {
             res.status(400).json({ message: 'User already exists' });
             return;
         }
 
-        // Check if passwords match
+
         if (password !== confirmpassword) {
             res.status(400).json({ message: 'Passwords do not match' });
             return;
         }
 
-        // Hash the password
         const hashedPassword: string = await bcrypt.hash(password, 10);
 
-        // Create a new user
+
         const user = userRepository.create({
             name,
             email,
             password: hashedPassword,
         });
 
-        // Save the user to the database
         await userRepository.save(user);
 
-        // Generate a JWT token
+
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-        // Return the new user and token
+
         res.status(201).json({ user, token });
     } catch (error) {
         console.error(error);
