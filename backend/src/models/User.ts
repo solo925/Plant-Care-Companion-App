@@ -1,10 +1,11 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Plant from './Plant';
+import CareReminder from './careReminder';
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id!: string;
 
     @Column({ unique: true })
     email!: string;
@@ -20,6 +21,10 @@ export class User {
 
     @OneToMany(() => Plant, (plant) => plant.user)
     plants!: Plant[];
+
+    @OneToMany(() => CareReminder, (reminder) => reminder.user)
+    reminders!: CareReminder[];
+    careReminder: any;
 }
 
 export default User;

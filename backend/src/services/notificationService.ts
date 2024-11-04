@@ -1,7 +1,10 @@
+import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { AppDataSource } from '../config/data-source';
-import { CareReminder } from '../models/careReminder';
+import { CareReminder } from '../models/careReminder'; // Ensure path is correct
 import { User } from '../models/User';
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,16 +20,18 @@ export const sendNotifications = async () => {
     const now = new Date();
 
     try {
-        // Find all reminders due for today
+
         const reminders = await reminderRepository.find({
             where: {
-                reminderDate: now,
+                reminderDate: new Date(new Date().setHours(0, 0, 0, 0)), // Reset time to midnight
             },
-            relations: ['user'],
+            relations: ['user', 'plant'],
         });
 
+
         for (const reminder of reminders) {
-            const user = await userRepository.findOne({ where: { id: reminder.user.id } });
+            const user = reminder.user;
+
             if (user) {
                 // Send email notification
                 await transporter.sendMail({

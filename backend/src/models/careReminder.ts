@@ -1,10 +1,14 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Plant from './Plant';
+import User from './User';
 
 @Entity()
 export class CareReminder {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id!: string;
+
+    @Column()
+    reminderDate!: Date;
 
     @Column()
     plantId!: number;
@@ -23,6 +27,13 @@ export class CareReminder {
 
     @UpdateDateColumn()
     updatedAt!: Date;
+
+
+    @Column({ type: 'text', nullable: true })
+    description!: string;
+
+    @ManyToOne(() => User, (user) => user.careReminder, { onDelete: 'CASCADE' })
+    user!: User;
 
     @ManyToOne(() => Plant, (plant) => plant.careReminder, { onDelete: 'CASCADE' })
     plant!: Plant;
