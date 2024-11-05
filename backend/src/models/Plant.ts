@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import User from './User';
 import CareReminder from './careReminder';
+import Plant3DModel from './Plant3Dmoedl';
+import User from './User';
 
 @Entity()
 export class Plant {
@@ -27,6 +28,9 @@ export class Plant {
 
     @ManyToOne(() => User, (user) => user.plants, { onDelete: 'CASCADE' })
     user!: User;
+
+    @OneToMany(() => Plant3DModel, (models) => models.plant, { onDelete: 'CASCADE' })
+    models!: Plant3DModel[]
 
     @OneToMany(() => CareReminder, (reminder) => reminder.plant)
     reminders!: CareReminder[];

@@ -10,7 +10,7 @@ ProfileController.get('/', verifyToken, async (req: CustomRequest, res: Response
     try {
         const userRepository = AppDataSource.getRepository(User);
 
-        // Ensure that id is treated as a number
+
         const userId = req.user!.id;
 
         const user = await userRepository.findOne({
@@ -37,7 +37,7 @@ ProfileController.put('/', verifyToken, upload.single('profilePhoto'), async (re
         const { name, email } = req.body;
         const profilePhoto = req.file ? req.file.path : undefined;
 
-        const updatedData: Partial<User> = { name, email }; // Ensure this matches User type
+        const updatedData: Partial<User> = { name, email };
         if (profilePhoto) updatedData.profilePhoto = profilePhoto;
 
 

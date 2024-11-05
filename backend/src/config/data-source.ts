@@ -5,6 +5,7 @@ import CareReminder from "../models/careReminder"
 import { Comment } from "../models/Comment"
 import { Message } from "../models/Message"
 import Plant from "../models/Plant"
+import Plant3DModel from "../models/Plant3Dmoedl"
 import { Post } from "../models/Post"
 import { Room } from "../models/Room"
 import User from "../models/User"
@@ -21,7 +22,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [User, Plant, CareReminder, Room, Comment, Post, Message],
+    entities: [User, Plant, CareReminder, Room, Comment, Post, Message, Plant3DModel],
     migrations: [],
     subscribers: [],
     extra: {

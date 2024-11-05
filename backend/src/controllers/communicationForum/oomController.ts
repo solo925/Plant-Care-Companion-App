@@ -5,7 +5,7 @@ import { Room } from '../../models/Room';
 
 export const RoomController = express.Router();
 
-// Create a new room
+
 RoomController.post('/', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
     const { name, description } = req.body;
     const userId = req.user?.id;
@@ -31,7 +31,7 @@ RoomController.post('/', verifyToken, async (req: CustomRequest, res: Response):
     }
 });
 
-// Get all rooms
+
 RoomController.get('/', async (req: Request, res: Response): Promise<void> => {
     try {
         const roomRepository = AppDataSource.getRepository(Room);
@@ -63,7 +63,7 @@ RoomController.get('/:id', async (req: Request, res: Response): Promise<void> =>
     }
 });
 
-// Update a room
+
 RoomController.put('/:id', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
     const { id } = req.params;
     const { name } = req.body;
@@ -88,7 +88,7 @@ RoomController.put('/:id', verifyToken, async (req: CustomRequest, res: Response
     }
 });
 
-// Delete a room
+
 RoomController.delete('/:id', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
     const { id } = req.params;
     const userId = req.user?.id;

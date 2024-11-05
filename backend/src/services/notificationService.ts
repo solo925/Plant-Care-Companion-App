@@ -33,7 +33,7 @@ export const sendNotifications = async () => {
             const user = reminder.user;
 
             if (user) {
-                // Send email notification
+
                 await transporter.sendMail({
                     from: process.env.EMAIL_USER,
                     to: user.email,

@@ -1,5 +1,5 @@
 import express from "express";
-import { LoginRouter, RegisterRoute } from "./auth";
+import { LoginRouter, passwordResetRouet, RegisterRoute } from "./auth";
 import careReminderRoute from "./careReminder";
 import commentsRouter from "./comments";
 import messageRoute from "./MessageRoutes";
@@ -24,5 +24,6 @@ mainRoute.use('/comments', commentsRouter);
 mainRoute.use('/rooms', roomRouter);
 mainRoute.use('/messages', messageRoute)
 mainRoute.use('/users', usersRoute);
+mainRoute.use('/auth/password-reset', passwordResetRouet);
 
 export default mainRoute;

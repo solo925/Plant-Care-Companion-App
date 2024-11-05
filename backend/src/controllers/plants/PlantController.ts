@@ -25,7 +25,7 @@ PlantController.post('/', verifyToken, async (req: R, res: Response): Promise<vo
             return;
         }
 
-        // Create a new plant instance
+
         const plant = plantRepository.create({
             name,
             species,

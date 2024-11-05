@@ -4,13 +4,23 @@ import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
+import { userSchema } from '../../schemas/userSchemas';
+
 
 dotenv.config();
 
 export const RegistrationController = express.Router();
 
 RegistrationController.post('/', async (req: Request, res: Response): Promise<void> => {
-    const { name, email, password, confirmpassword } = req.body;
+    const { error, value } = userSchema.validate(req.body);
+
+
+    if (error) {
+        res.status(400).json({ message: error.details[0].message });
+        return;
+    }
+
+    const { name, email, password, confirmpassword } = value;
 
     try {
         const userRepository = AppDataSource.getRepository(User);
@@ -19,12 +29,6 @@ RegistrationController.post('/', async (req: Request, res: Response): Promise<vo
         const existingUser = await userRepository.findOne({ where: { email } });
         if (existingUser) {
             res.status(400).json({ message: 'User already exists' });
-            return;
-        }
-
-
-        if (password !== confirmpassword) {
-            res.status(400).json({ message: 'Passwords do not match' });
             return;
         }
 

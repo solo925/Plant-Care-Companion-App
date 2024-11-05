@@ -2,12 +2,21 @@ import bcrypt from 'bcrypt';
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppDataSource } from '../../config/data-source';
-import { User } from '../../models/User'; // Ensure this import is correct
+import { User } from '../../models/User';
+import { loginSchema } from '../../schemas/userSchemas';
 
 export const LoginController = express.Router();
 
 LoginController.post('/', async (req: Request, res: Response): Promise<void> => {
-    const { email, password } = req.body;
+    const { error, value } = loginSchema.validate(req.body);
+
+    if (error) {
+        res.status(400).json({ message: error.details[0].message });
+        return;
+    }
+
+
+    const { email, password } = value;
 
     try {
 
@@ -20,14 +29,14 @@ LoginController.post('/', async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
-        // Check password
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             res.status(400).json({ message: 'Invalid email or password' });
             return;
         }
 
-        // Generate a JWT token
+
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
 

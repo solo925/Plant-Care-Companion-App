@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import CareReminder from './careReminder';
 import { Comment } from './Comment';
@@ -22,6 +23,14 @@ export class User {
 
     @Column({ nullable: true })
     profilePhoto?: string;
+
+
+    @Column({ nullable: true })
+    resetPasswordToken?: string;
+
+    @Column({ type: 'timestamp', nullable: true })
+    resetPasswordExpires?: Date;
+
 
     @OneToMany(() => Plant, (plant) => plant.user)
     plants!: Plant[];
@@ -48,6 +57,10 @@ export class User {
 
     @OneToMany(() => Message, (message) => message.user)
     messages!: Message[];
+
+    async setPassword(newPassword: string): Promise<void> {
+        this.password = await bcrypt.hash(newPassword, 10);
+    }
 }
 
 export default User;

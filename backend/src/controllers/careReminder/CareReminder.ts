@@ -17,7 +17,7 @@ CareReminderController.post('/', verifyToken, async (req: R1, res: Response): Pr
     const { plantId, reminderType, frequency, nextReminder, reminderDate, description } = req.body;
 
 
-    const userId = req.user!.id; // Now it's a string
+    const userId = req.user!.id;
 
 
     if (!userId) {
@@ -34,14 +34,14 @@ CareReminderController.post('/', verifyToken, async (req: R1, res: Response): Pr
         const reminderRepository = AppDataSource.getRepository(CareReminder);
         const plantRepository = AppDataSource.getRepository(Plant);
 
-        // Check if the plant exists
+
         const plant = await plantRepository.findOne({ where: { id: plantId } });
         if (!plant) {
             res.status(404).json({ message: 'Plant not found' });
             return;
         }
 
-        // Create the new care reminder
+
         const reminder = reminderRepository.create({
             user: { id: userId },
             plantId,
@@ -68,7 +68,7 @@ CareReminderController.get('/plant/:plantId', async (req: Request, res: Response
     try {
         const reminderRepository = AppDataSource.getRepository(CareReminder);
 
-        // Fetch reminders for the specified plant
+
         const reminders = await reminderRepository.find({ where: { plantId: parsedPlantId } });
         res.status(200).json(reminders);
     } catch (error) {
