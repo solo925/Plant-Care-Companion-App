@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import CareReminder from './careReminder';
 import Plant3DModel from './Plant3Dmoedl';
+import PlantHealthLog from './PlantHealth';
 import User from './User';
 
 @Entity()
@@ -31,6 +32,10 @@ export class Plant {
 
     @OneToMany(() => Plant3DModel, (models) => models.plant, { onDelete: 'CASCADE' })
     models!: Plant3DModel[]
+
+    @OneToMany(() => PlantHealthLog, (healthLog) => healthLog.plant)
+    healthLogs!: PlantHealthLog[];
+
 
     @OneToMany(() => CareReminder, (reminder) => reminder.plant)
     reminders!: CareReminder[];
