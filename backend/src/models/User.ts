@@ -4,6 +4,7 @@ import CareReminder from './careReminder';
 import { Comment } from './Comment';
 import { Message } from './Message';
 import Plant from './Plant';
+import PlantHealthLog from './PlantHealth';
 import { Post } from './Post';
 import { Room } from './Room';
 
@@ -57,6 +58,10 @@ export class User {
 
     @OneToMany(() => Message, (message) => message.user)
     messages!: Message[];
+
+    @OneToMany(() => PlantHealthLog, (healthLog) => healthLog.user)
+    healthLogs!: PlantHealthLog[];
+
 
     async setPassword(newPassword: string): Promise<void> {
         this.password = await bcrypt.hash(newPassword, 10);

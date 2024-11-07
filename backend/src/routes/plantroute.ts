@@ -1,8 +1,10 @@
 import express from "express";
 import PlantController from "../controllers/plants/PlantController";
+import PlantHealthLogController from "../controllers/plants/PlantHealthTracker";
 
-const plantRouter = express.Router();
+export const plantRouter = express.Router();
+export const planthealhRoute = express.Router();
 
+planthealhRoute.use('/', PlantHealthLogController)
 plantRouter.use('/', PlantController);
 
-export default plantRouter;
