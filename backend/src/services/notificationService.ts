@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { AppDataSource } from '../config/data-source';
-import { CareReminder } from '../models/careReminder'; // Ensure path is correct
+import { CareReminder } from '../models/careReminder';
 import { User } from '../models/User';
 
 dotenv.config();
@@ -23,7 +23,7 @@ export const sendNotifications = async () => {
 
         const reminders = await reminderRepository.find({
             where: {
-                reminderDate: new Date(new Date().setHours(0, 0, 0, 0)), // Reset time to midnight
+                reminderDate: new Date(new Date().setHours(0, 0, 0, 0)),
             },
             relations: ['user', 'plant'],
         });

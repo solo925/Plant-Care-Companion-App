@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import http from "http";
 import "reflect-metadata";
@@ -10,19 +11,27 @@ import mainRoute from "./routes/main";
 
 const app = express();
 
+
+app.use(cors(
+    {
+        origin: 'http://localhost:5173',
+        credentials: true,
+    }
+));
+
+
 app.use(express.json());
 
 app.use('/uploads', express.static('uploads'));
 
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-// Test database connection
+
 AppDataSource.initialize()
     .then(async () => {
         console.log("Data Source has been initialized!");
 
-        // Optional: Test a sample query to check CRUD functionality
+
         const testConnection = await AppDataSource.query("SELECT 1;");
         console.log("Connection test query result:", testConnection);
     })

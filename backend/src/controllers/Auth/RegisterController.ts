@@ -48,6 +48,7 @@ RegistrationController.post('/', async (req: Request, res: Response): Promise<vo
 
 
         res.status(201).json({ user, token });
+        // res.redirect('localhost:3000/api/v1/auth/login')
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

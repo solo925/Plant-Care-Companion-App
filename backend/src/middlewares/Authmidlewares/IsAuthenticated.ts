@@ -6,9 +6,6 @@ export interface CustomRequest extends Request {
     };
 }
 
-
-
-
 export const verifyToken: any = (req: CustomRequest, res: Response, next: NextFunction) => {
     const token = req.header('Authorization')?.split(' ')[1];
 
