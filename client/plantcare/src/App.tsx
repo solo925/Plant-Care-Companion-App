@@ -1,8 +1,12 @@
 import { Fragment } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Login from './componets/Auth/Login'
+import './assets/styles/Dashboard.css'
+import './assets/styles/Homepage.css'
+import './assets/styles/LoginPage.css'
 import Registration from './componets/Auth/Registration'
+import LoginPage from './pages/Auth/Login'
+import DashboardPage from './pages/Dashboard/dashboardPage'
 import HomePage from './pages/Home'
 
 function App() {
@@ -12,9 +16,10 @@ function App() {
     <Fragment>
 
         <Routes>
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<LoginPage/>} />
           <Route path ='/register' element={<Registration />} />
-          <Route path ='/home' element={<HomePage/>} />
+        <Route path='/' element={<HomePage />} />
+        <Route path ='/dashboard' element={<DashboardPage />} />
     </Routes>
   
 

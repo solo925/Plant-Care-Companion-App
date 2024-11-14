@@ -19,13 +19,25 @@ export class Plant {
     wateringFrequency!: string;
 
     @Column({ type: 'timestamp', nullable: true })
-    lastWatered!: Date;
+    lastWatered!: Date | null;
 
     @CreateDateColumn()
     createdAt!: Date;
 
     @UpdateDateColumn()
     updatedAt!: Date;
+
+    @Column({ nullable: true })
+    imageUrl?: string;
+
+    @Column({ type: 'text', nullable: true })
+    description?: string;
+
+    @Column({ type: 'text', nullable: true })
+    growingConditions?: string;
+
+    @Column({ nullable: true })
+    size?: string;
 
     @ManyToOne(() => User, (user) => user.plants, { onDelete: 'CASCADE' })
     user!: User;

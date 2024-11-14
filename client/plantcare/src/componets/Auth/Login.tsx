@@ -1,76 +1,61 @@
-import { useContext, useState } from "react"
-import { PlantCareContext } from "../../context"
+import { useState } from "react";
 
-
-function Login() {
-    const context = useContext(PlantCareContext)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-   
-    if(!context) throw new Error ("Context must be used inside a provider")
-    
-    const { loading, setLoading,user,setUser } = context
-    
-    
-
-    const handleLogin = async (e:React.FormEvent<HTMLFormElement>)=> {
-        e.preventDefault()
-        try {
-            
-        } catch (error) {
-            console.log(error)
-            
-        } finally {
-            setLoading(false)
-        }
-
-        if (loading) return <h3>please wait loading login form</h3> 
-        setLoading(true)
-        const response = await fetch('http://localhost:3000/api/v1/auth/login', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password,
-     
-            })
-            
-        });
-
-        const data = await response.json()
-        if (response.ok) { setUser(data.user) } 
-        console.log(data.message)
-        window.location.href = 'http://localhost:5173/home';     
-    }
-
-  return (
-      <div>
-          <h2>login</h2>
-          <form onSubmit={handleLogin}>
-              <div className="loginform">
-              <input type="email"
-                  placeholder="email@example.com"
-                  value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
-              />
-              <input type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange = {(e)=>setPassword(e.target.value)}
-                  />
-              </div>
-              <div className="login-button">
-                  <button type="submit">login</button>
-              </div>
-          </form>
-
-          
-
-    </div>
-  )
+interface LoginProps {
+  setLoading: (loading: boolean) => void;
+  setUser: (user: any) => void;
 }
 
-export default Login
+function Login({ setLoading, setUser }: LoginProps) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            const response = await fetch('http://localhost:3000/api/v1/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setUser(data.user);
+                window.location.href = 'http://localhost:5173';
+            } else {
+                console.log(data.message);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <form onSubmit={handleLogin}>
+            <div className="loginform">
+                <input
+                    type="email"
+                    placeholder="email@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <div className="login-button">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    );
+}
+
+export default Login;

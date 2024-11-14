@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { PlantType, userTypes } from "../Types";
 
 export interface PlantCareContextProps {
@@ -9,8 +9,8 @@ export interface PlantCareContextProps {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   plants: PlantType[];
   setPlants: React.Dispatch<React.SetStateAction<PlantType[]>>;
-  user: userTypes | null; 
-  setUser: React.Dispatch<React.SetStateAction<userTypes | null>>;
+  user: userTypes | null | undefined; 
+  setUser: React.Dispatch<React.SetStateAction<userTypes | null | undefined>>;
   selectedPlant: PlantType | null; 
   setSelectedPlant: React.Dispatch<React.SetStateAction<PlantType | null>>;
 }
@@ -22,13 +22,29 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [plants, setPlants] = useState<PlantType[]>([]);
-  const [user, setUser] = useState<userTypes | null>(null);
+  // const [user, setUser] = useState<userTypes | null | undefined>(null);
   const [selectedPlant, setSelectedPlant] = useState<PlantType | null>(null);
 
   const LogoutFunction = () => {
     setUser(null);
     localStorage.removeItem("token");
   };
+
+ 
+const [user, setUser] = useState<userTypes | null | undefined>(() => {
+  // Attempting to load user data from localStorage if available
+  const savedUser = localStorage.getItem('user');
+  console.log(savedUser)
+  return savedUser ? JSON.parse(savedUser) : null;
+});
+
+  useEffect(() => {
+  // This will listen to user updaes
+  if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+  }
+}, [user]);
+
 
   return (
     <PlantCareContext.Provider

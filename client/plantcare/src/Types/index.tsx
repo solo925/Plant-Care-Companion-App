@@ -1,4 +1,4 @@
-export type userTypes = {
+export type userTypes={
     id?: string;
     email: string;
     name: string;
@@ -10,13 +10,15 @@ export type userTypes = {
     reminders?: careReminderTypes[];
     careReminder?: careReminderTypes;
     posts?: postTypes[];
-    comments?:commentTypes[];
+    comments?: commentTypes[];
     rooms?: roomTypes[];
     sentMessages?: messageType[];
     receivedMssages?: messageType[];
     messages?: messageType[];
     healthLogs?: plantHealthLogTypes[];
-}
+    user?: any;
+   
+};
 
 export type PlantType = {
     id?: string;
