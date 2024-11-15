@@ -8,6 +8,8 @@ interface LoginProps {
 function Login({ setLoading, setUser }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const token = localStorage.getItem('token');
     
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,6 +19,7 @@ function Login({ setLoading, setUser }: LoginProps) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ email, password }),
             });

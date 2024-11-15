@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { PlantType, userTypes } from "../Types";
+import { messageType, PlantType, postTypes, roomTypes, userTypes } from "../Types";
 
 export interface PlantCareContextProps {
   LogoutFunction: () => void;
@@ -13,6 +13,12 @@ export interface PlantCareContextProps {
   setUser: React.Dispatch<React.SetStateAction<userTypes | null | undefined>>;
   selectedPlant: PlantType | null; 
   setSelectedPlant: React.Dispatch<React.SetStateAction<PlantType | null>>;
+  posts: postTypes[];
+  setPosts: React.Dispatch<React.SetStateAction<postTypes[]>>;
+  messages: messageType[];
+  setMessages: React.Dispatch<React.SetStateAction<messageType[]>>;
+  rooms: roomTypes[];
+  setRooms: React.Dispatch<React.SetStateAction<roomTypes[]>>;
 }
 
 
@@ -22,8 +28,10 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [plants, setPlants] = useState<PlantType[]>([]);
-  // const [user, setUser] = useState<userTypes | null | undefined>(null);
+  const [messages, setMessages] = useState<messageType[]>([]);
+  const [rooms, setRooms] = useState<roomTypes[]>([]);
   const [selectedPlant, setSelectedPlant] = useState<PlantType | null>(null);
+  const [posts,setPosts] = useState<postTypes[]>([]);
 
   const LogoutFunction = () => {
     setUser(null);
@@ -60,6 +68,12 @@ const [user, setUser] = useState<userTypes | null | undefined>(() => {
         setUser,
         selectedPlant,
         setSelectedPlant,
+        posts,
+        setPosts,
+        messages,
+        setMessages,
+        rooms,
+        setRooms,
       }}
     >
       {children}

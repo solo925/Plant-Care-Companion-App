@@ -1,8 +1,8 @@
-export type userTypes={
+export interface userTypes{
     id?: string;
-    email: string;
-    name: string;
-    password: string;
+    email?: string;
+    name?: string;
+    password?: string;
     profilePhoto?: string;
     resetPasswordToken?: string;
     resetPasswordExpires?: Date;
@@ -17,12 +17,13 @@ export type userTypes={
     messages?: messageType[];
     healthLogs?: plantHealthLogTypes[];
     user?: any;
+    recipient?: userTypes;
    
 };
 
-export type PlantType = {
+export interface PlantType {
     id?: string;
-    name: string;
+    name?: string;
     species?: string;
     wateringFrequency?: string;
     lastWatered?: Date;
@@ -30,8 +31,7 @@ export type PlantType = {
     updatedAt?: Date;
     user?: userTypes;
 }
-
-export type careReminderTypes = {
+export interface careReminderTypes{
     id: string; 
     reminderDate: Date;
     plantId: number;
@@ -44,7 +44,7 @@ export type careReminderTypes = {
     plant: PlantType;
 }
 
-export type commentTypes = {
+export interface commentTypes{
     id: number;
     content: string;
     createdAt: Date;
@@ -52,7 +52,7 @@ export type commentTypes = {
     post?: postTypes;
 }
 
-export type postTypes = {
+export interface postTypes{
     id: number;
     title: string;
     content: string;
@@ -61,46 +61,34 @@ export type postTypes = {
     comments: commentTypes;
 }
 
-export type messageTypes = {
-    id: number;
-    content: string;
-    createdAt: Date;
-    sender: userTypes;
-    recipient: userTypes;
-    user: userTypes;
-    masageuser: userTypes;
-    room: roomTypes;
+export interface roomTypes{
 
-}
-export type roomTypes={
-
-    id: number;
-    name: string;
+    id?: number;
+    name?: string;
     description?: string;
-    creator: userTypes;
-    users: userTypes[];
-    posts: postTypes[];
-    messages: messageType[];
+    creator?: userTypes;
+    users?: userTypes[];
+    posts?: postTypes[];
+    messages?: messageType[];
 }
 
-export type messageType = {
-    id: number;
-    content: string;
-    createdAt: Date;
-    sender: userTypes;
-    recipient: userTypes;
-    user: userTypes;
-    masageuser:userTypes;
-    room: roomTypes;
+export interface messageType{
+    id?: number;
+    content?: string;
+    createdAt?: Date;
+    sender?: userTypes |null | undefined;
+    recipient?: userTypes;
+    user?: userTypes;
+    masageuser?:userTypes;
+    room?:roomTypes[];
 }
-
-export type feedbackTypes = {
+export interface feedbackTypes{
     id: number;
     message: string;
     healthLog: plantHealthLogTypes;
 }
 
-export type plantHealthLogTypes = {
+export interface plantHealthLogTypes{
     id: string
     leafColor?: string;
     growthProgress?: string;

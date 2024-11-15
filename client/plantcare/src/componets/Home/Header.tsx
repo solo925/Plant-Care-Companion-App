@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { PlantCareContext } from "../../context";
 
 const Header = () => {
-  const { user }:any = useContext(PlantCareContext)
+  const context = useContext(PlantCareContext);
+  const { user } = context || {};
   if (!user) {
       return (
     <div className="header">

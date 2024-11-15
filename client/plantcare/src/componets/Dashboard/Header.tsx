@@ -3,7 +3,8 @@ import { PlantCareContext } from "../../context";
 
 
 const DashboardHeader = () => {
-    const { user }: any = useContext(PlantCareContext);
+    const context = useContext(PlantCareContext);
+    const { user } = context || {};
 
     return (
         <header className='dashboard-header'>

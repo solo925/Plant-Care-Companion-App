@@ -1,0 +1,23 @@
+.message-container {
+  background-color: #d5f9e2; /* Light green background */
+  color: #3b7047; /* Dark green text */
+}
+
+.message-input,
+.private-message-input {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+button {
+  background-color: #64b57d; /* Green button */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #529c68; /* Darker green on hover */
+}

@@ -1,0 +1,111 @@
+.community-forum {
+  background-color: #e8f5e9; /* Light green background */
+  padding: 20px;
+  color: #1b5e20; /* Dark green text color */
+  font-family: Arial, sans-serif;
+}
+
+.forum-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #388e3c; /* Medium green for headers */
+}
+
+.create-post-section,
+.post-list-section {
+  margin-top: 20px;
+  background-color: #c8e6c9; /* Light green container background */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.create-post-section h2,
+.post-list-section h2 {
+  color: #2e7d32; /* Darker green for section headers */
+}
+
+/* NewPost component styling */
+.create-post-section input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+}
+
+.create-post-section .ql-container {
+  border: 1px solid #a5d6a7; /* Border around editor */
+}
+
+.create-post-section button {
+  background-color: #66bb6a; /* Green button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-post-section button:hover {
+  background-color: #43a047; /* Darker green on hover */
+}
+
+/* BlogPostList component styling */
+.post-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.post-list-section button {
+  background-color: #66bb6a; /* Green filter button */
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.post-list-section button:hover {
+  background-color: #43a047;
+}
+
+/* BlogPostCard component styling */
+.blog-post-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #a5d6a7;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.blog-post-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post-card h3 {
+  color: #388e3c;
+}
+
+.blog-post-card p {
+  color: #1b5e20;
+}
+
+/* SinglePost and Comments component styling */
+.comment {
+  background-color: #f1f8e9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.comment small {
+  display: block;
+  color: #388e3c;
+  margin-top: 5px;
+}
+
+.comment p {
+  margin: 0;
+}
