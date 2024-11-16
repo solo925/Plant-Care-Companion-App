@@ -8,6 +8,8 @@ import './assets/styles/Rooms.css'
 import './assets/styles/communityForum.css'
 import Registration from './componets/Auth/Registration'
 import CreateRoom from './componets/CommunicationForum/CreateRoom'
+import Plants from './componets/Plants/Plants'
+import SinglePlantTile from './componets/Plants/singlePlantsTile'
 import LoginPage from './pages/Auth/Login'
 import ChatPage from './pages/ChatPage'
 import DashboardPage from './pages/Dashboard/dashboardPage'
@@ -28,6 +30,8 @@ function App() {
         <Route path='/community' element={<CommunityForumPage />} />
         <Route path='/create-room' element={ <CreateRoom/>} />
         <Route path='/chat' element={<ChatPage/>} />
+        <Route path='/plants' element={<Plants/>} />
+        <Route path='/plants/:id' element={<SinglePlantTile/>} />
 
         
      

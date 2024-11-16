@@ -3,6 +3,7 @@ import { messageType, PlantType, postTypes, roomTypes, userTypes } from "../Type
 
 export interface PlantCareContextProps {
   LogoutFunction: () => void;
+  fetchPlants: () => Promise<void>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   error: string | null;
@@ -38,6 +39,21 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
     localStorage.removeItem("token");
   };
 
+  const fetchPlants = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/plants/all');
+      const allPlants: PlantType[] = await response.json();
+
+      if (allPlants.length > 0) {
+        setPlants(allPlants);
+      } else {
+        console.log('No plants to display');
+      }
+    } catch (error) {
+      console.error('Error fetching plants:', error);
+    }
+  };
+
  
 const [user, setUser] = useState<userTypes | null | undefined>(() => {
   // Attempting to load user data from localStorage if available
@@ -57,6 +73,7 @@ const [user, setUser] = useState<userTypes | null | undefined>(() => {
   return (
     <PlantCareContext.Provider
       value={{
+        fetchPlants,
         LogoutFunction,
         loading,
         setLoading,

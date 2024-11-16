@@ -25,6 +25,8 @@ export interface PlantType {
     id?: string;
     name?: string;
     species?: string;
+    imageUrl?: string;
+    description?:string;
     wateringFrequency?: string;
     lastWatered?: Date;
     createdAt?: Date;

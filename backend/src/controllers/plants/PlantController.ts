@@ -45,6 +45,20 @@ PlantController.post('/', verifyToken, async (req: R, res: Response): Promise<vo
     }
 });
 
+PlantController.get('/all', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const plantRepository = AppDataSource.getRepository(Plant)
+        const plants = await plantRepository.find()
+        res.status(200).json(plants)
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "server error" })
+
+    }
+})
+
 
 PlantController.get('/', verifyToken, async (req: R, res: Response): Promise<void> => {
     try {
