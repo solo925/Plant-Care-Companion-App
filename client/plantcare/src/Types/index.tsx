@@ -84,7 +84,8 @@ export interface messageType{
     recipient?: userTypes;
     user?: userTypes;
     masageuser?:userTypes;
-    room?:roomTypes[];
+    room?: roomTypes[];
+    replyTo?: string | undefined |null;
 }
 export interface feedbackTypes{
     id: number;

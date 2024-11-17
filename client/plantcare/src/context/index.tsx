@@ -32,7 +32,8 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
   const [messages, setMessages] = useState<messageType[]>([]);
   const [rooms, setRooms] = useState<roomTypes[]>([]);
   const [selectedPlant, setSelectedPlant] = useState<PlantType | null>(null);
-  const [posts,setPosts] = useState<postTypes[]>([]);
+  const [posts, setPosts] = useState<postTypes[]>([]);
+ 
 
   const LogoutFunction = () => {
     setUser(null);
@@ -70,7 +71,7 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
 
  
 const [user, setUser] = useState<userTypes | null | undefined>(() => {
-  // Attempting to load user data from localStorage if available
+ 
   const savedUser = localStorage.getItem('user');
   console.log(savedUser)
   return savedUser ? JSON.parse(savedUser) : null;

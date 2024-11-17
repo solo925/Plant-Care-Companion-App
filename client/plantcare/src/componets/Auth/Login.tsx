@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { userTypes } from "../../Types"; // Ensure you have imported the correct type for `userTypes`
 
 interface LoginProps {
-  setLoading: (loading: boolean) => void;
-  setUser: (user: any) => void;
+    setLoading: (loading: boolean) => void;
+    setUser: React.Dispatch<React.SetStateAction<userTypes | null | undefined>>;
 }
 
 function Login({ setLoading, setUser }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const token = localStorage.getItem('token');
-    
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -19,15 +18,15 @@ function Login({ setLoading, setUser }: LoginProps) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
             if (response.ok) {
-                setUser(data.user);
-                window.location.href = 'http://localhost:5173';
+                localStorage.setItem('token', data.token);
+                setUser(data.user); 
+                window.location.href = 'http://localhost:5173';  
             } else {
                 console.log(data.message);
             }
