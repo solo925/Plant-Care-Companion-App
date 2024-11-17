@@ -34,20 +34,28 @@ h1 {
   font-size: 2.5em;
   line-height: 0.5;
 }
-
+/* Styling the filter buttons */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding inside the button */
+  margin: 5px; /* Space between buttons */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1rem; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
+
+/* Change the background color on hover */
 button:hover {
-  border-color: #646cff;
+  background-color: #45a049; /* Darker green when hovering */
+}
+
+/* Ensure that buttons are visible and aligned properly */
+button:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.5); /* Add a subtle green outline on focus */
 }
 
 button:focus,
@@ -62,8 +70,5 @@ button:focus-visible {
   }
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }

@@ -1,111 +1,161 @@
-.community-forum {
-  background-color: #e8f5e9; /* Light green background */
-  padding: 20px;
-  color: #1b5e20; /* Dark green text color */
-  font-family: Arial, sans-serif;
-}
-
-.forum-header {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #388e3c; /* Medium green for headers */
-}
-
-.create-post-section,
-.post-list-section {
-  margin-top: 20px;
-  background-color: #c8e6c9; /* Light green container background */
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.create-post-section h2,
-.post-list-section h2 {
-  color: #2e7d32; /* Darker green for section headers */
-}
-
-/* NewPost component styling */
-.create-post-section input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #a5d6a7;
-  border-radius: 5px;
-}
-
-.create-post-section .ql-container {
-  border: 1px solid #a5d6a7; /* Border around editor */
-}
-
-.create-post-section button {
-  background-color: #66bb6a; /* Green button */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.create-post-section button:hover {
-  background-color: #43a047; /* Darker green on hover */
-}
-
-/* BlogPostList component styling */
-.post-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.post-list-section button {
-  background-color: #66bb6a; /* Green filter button */
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 5px;
-}
-
-.post-list-section button:hover {
-  background-color: #43a047;
-}
-
-/* BlogPostCard component styling */
-.blog-post-card {
-  background-color: #ffffff;
-  padding: 15px;
-  border: 1px solid #a5d6a7;
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease;
-}
-
-.blog-post-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.blog-post-card h3 {
-  color: #388e3c;
-}
-
-.blog-post-card p {
-  color: #1b5e20;
-}
-
-/* SinglePost and Comments component styling */
-.comment {
-  background-color: #f1f8e9;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
-.comment small {
-  display: block;
-  color: #388e3c;
-  margin-top: 5px;
-}
-
-.comment p {
+/* Overall container for the forum page */
+.community-forum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Forum header */
+.forum-header {
+  background-color: #fff;
+  width: 100%;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Flexbox layout for content */
+.community-forum-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Left sidebar: User Profile, Online Users, Notifications */
+.left-sidebar {
+  flex: 0 0 300px;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
+  height: fit-content;
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.online-users ul {
+  list-style: none;
+  padding: 0;
+}
+
+.online-users li {
+  margin: 0.5rem 0;
+}
+
+.notifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications li {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Styling the filter buttons */
+button {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding inside the button */
+  margin: 5px; /* Space between buttons */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1rem; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Change the background color on hover */
+button:hover {
+  background-color: #45a049; /* Darker green when hovering */
+}
+
+/* Ensure that buttons are visible and aligned properly */
+button:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.5); /* Add a subtle green outline on focus */
+}
+
+/* Main Feed (Middle Section): Trending Posts, Post List */
+.main-feed {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Right Sidebar: Create Post Section, Chat Page */
+.right-sidebar {
+  flex: 0 0 300px;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.create-post-section {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.right-sidebar h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.right-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.right-sidebar li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .community-forum-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .left-sidebar,
+  .right-sidebar {
+    flex: 0 0 100%;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  .main-feed {
+    margin-right: 0;
+  }
 }

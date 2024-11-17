@@ -16,12 +16,15 @@ function LoginPage() {
     interface ust extends userTypes{
         (prevState: null): null;
     }
+
     
 
     const handleSetUser = (user: ust) => {
         contextSetUser(user);
         setUser(user);
     };
+
+    console.log(user)
 
     return (
         <div>

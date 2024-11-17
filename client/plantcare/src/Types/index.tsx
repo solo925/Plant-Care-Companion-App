@@ -61,6 +61,7 @@ export interface postTypes{
     createdAt: Date;
     author: userTypes;
     comments: commentTypes;
+    likes?: number;
 }
 
 export interface roomTypes{

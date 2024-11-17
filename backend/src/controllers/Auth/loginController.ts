@@ -40,7 +40,7 @@ LoginController.post('/', async (req: Request, res: Response): Promise<void> => 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
 
-        res.status(200).json({ user: { id: user.id, name: user.name, email: user.email }, token });
+        res.status(200).json({ user: { id: user.id, name: user.name, email: user.email, profilePhoto: user.profilePhoto }, token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

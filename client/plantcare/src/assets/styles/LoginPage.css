@@ -33,6 +33,9 @@ button.submit-btn {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+button {
+  background-color: #4caf50;
+}
 
 button.submit-btn:hover {
   background-color: #45a049;
