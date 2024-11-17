@@ -39,6 +39,20 @@ function PlantCareProvider({ children }: { children: React.ReactNode }): JSX.Ele
     localStorage.removeItem("token");
   };
 
+  useEffect(() => {
+    const fetchRooms = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/v1/rooms');
+            const data = await response.json();
+            setRooms(data);
+        } catch (error) {
+            console.error('Error fetching rooms:', error);
+        }
+    };
+
+    fetchRooms();
+}, []);
+
   const fetchPlants = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/v1/plants/all');

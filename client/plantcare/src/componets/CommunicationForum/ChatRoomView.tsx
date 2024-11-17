@@ -1,92 +1,114 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { io, Socket } from 'socket.io-client';
-import { PlantCareContext, PlantCareContextProps } from '../../context';
-import { messageType } from '../../Types';
+import { useContext, useEffect, useRef, useState } from "react";
+import '../../assets/styles/ChatRoomView.css';
+import { PlantCareContext, PlantCareContextProps } from "../../context";
+import { messageType } from "../../Types";
 
-interface ChatRoomViewProps {
-    roomId: number | null; 
+type ChatRoomViewProps = {
+    roomId: number | null;
 }
 
-const ChatRoomView: React.FC<ChatRoomViewProps> = () => {
-    const { id } = useParams<{ id: string }>();
+const ChatRoomView: React.FC<ChatRoomViewProps> = ({ roomId }) => {
     const context = useContext(PlantCareContext) as PlantCareContextProps;
-    const { user, rooms, setRooms, messages, setMessages } = context || {};
-
+    const { user, rooms } = context || {};
+    const [messages, setMessages] = useState<messageType[]>([]);
     const [newMessage, setNewMessage] = useState<string>('');
-    const [socket, setSocket] = useState<Socket | null>(null);
+    const [image, setImage] = useState<File | null>(null); 
+    const messageEndRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        // Fetch room details
-        fetch(`http://localhost:3000/api/v1/rooms/${id}`)
-            .then(response => response.json())
-            .then(data => setRooms(data))
-            .catch(error => console.error('Error loading room details:', error));
-
-        const socketConnection = io('http://localhost:3000');
-        setSocket(socketConnection);
-
-        
-        socketConnection.emit('joinRoom', id);
-
-        
-        socketConnection.on('message', (message: messageType) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
-        });
-
-        return () => {
-            socketConnection.emit('leaveRoom', id);
-            socketConnection.disconnect();
-        };
-    }, [id, setRooms, setMessages]);
-
+    
     const handleSendMessage = () => {
-        if (socket && newMessage) {
+        if (newMessage.trim() || image) {
             const message: messageType = {
                 content: newMessage,
+                image: image ? URL.createObjectURL(image) : undefined,
                 createdAt: new Date(),
                 sender: user,
-                recipient: { id },
             };
-            socket.emit('sendMessage', message);
-            setMessages((prevMessages) => [...prevMessages, message]);
+
+            const updatedMessages = [...messages, message];
+            setMessages(updatedMessages);
+            localStorage.setItem('chatMessages', JSON.stringify(updatedMessages)); // Save to localStorage
             setNewMessage('');
+            setImage(null); // Reset image after sending
         }
     };
 
+    // Load messages from localStorage on component mount
+    useEffect(() => {
+        const savedMessages = localStorage.getItem('chatMessages');
+        if (savedMessages) {
+            setMessages(JSON.parse(savedMessages)); // Load saved messages
+        }
+    }, []);
+
+    // Auto-scroll to the latest message
+    useEffect(() => {
+        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
+    const selectedRoom = rooms?.find((room) => room.id === roomId);
+
+    if (!roomId || !selectedRoom) {
+        return <div className="chat-room-view-placeholder">Select a room to start chatting</div>;
+    }
+
     return (
-        <div>
-          
-            {rooms.length > 0 ? (
-                <>
-                    <h2>{rooms[0].name}</h2>
-                    <p>{rooms[0].description}</p>
-                    <div className="message-container">
-                        {messages.map((message, index) => (
-                            <div key={index}>
-                                <strong>{message.sender?.name || 'Anonymous'}</strong>: {message.content}{' '}
-                                <span>{new Date(message.createdAt || '').toLocaleTimeString()}</span>
+        <div className="chat-room-view">
+            {/* Chat Header */}
+            <div className="chat-header">
+                {selectedRoom.name}
+            </div>
+
+            {/* Chat Messages */}
+            <div className="chat-messages">
+                {messages.map((message, index) => (
+                    <div key={index} className={`message ${message.sender?.id === user?.id ? 'sent' : 'received'}`}>
+                        <div className="message-header">
+                            <img
+                                src={`http://localhost:3000/${message.sender?.profilePhoto || 'uploads/default-placeholder.png'}`}
+                                alt="Avatar"
+                                className="avatar"
+                                onError={(e) => {
+                                    e.currentTarget.src = 'https://via.placeholder.com/100';
+                                }}
+                            />
+                            <div className="message-info">
+                                <strong>{message.sender?.name || 'Anonymous'}</strong>
+                                <span className="message-time">
+                                    {new Date(message.createdAt || '').toLocaleTimeString()}
+                                </span>
                             </div>
-                        ))}
+                        </div>
+                        <div className="message-body">
+                            <p>{message.content}</p>
+                            {message.image && <img src={message.image} alt="Message Attachment" className="message-image" />}
+                        </div>
                     </div>
-                    <div className="message-input">
-                        <input
-                            type="text"
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            placeholder="Type a message..."
-                        />
-                        <button onClick={handleSendMessage}>Send</button>
-                    </div>
-                </>
-            ) : (
-                <><p>No room selected or available. Create a new room below:</p><Link to="/create-room">
-                        <button>Create Room</button>
-                    </Link></>
-                    
-                    
-            )}
+                ))}
+                <div ref={messageEndRef} />
+            </div>
+
+            {/* Message Input */}
+            <div className="message-input">
+                <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder="Type a message..."
+                    className="message-text-input"
+                />
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+                    className="image-input"
+                />
+                <button onClick={handleSendMessage} className="send-button">
+                    Send
+                </button>
+            </div>
         </div>
     );
-}    
+};
+
 export default ChatRoomView;

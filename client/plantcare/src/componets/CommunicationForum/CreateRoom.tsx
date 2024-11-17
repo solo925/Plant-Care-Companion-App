@@ -24,8 +24,8 @@ const CreateRoom = () => {
             .then(response => response.json())
             .then(data => {
                 
-                // navigate(`rooms/${data.id}`);
-                navigate(`/chat`);
+                navigate(`rooms/${data.id}`);
+                // navigate(`/chat`);
             })
             .catch(error => console.error('Error creating room:', error));
         }
@@ -33,7 +33,7 @@ const CreateRoom = () => {
 
     return (
         <div>
-            <h2>Create a New Chat Room</h2>
+            <h2>Create</h2>
             <input
                 type="text"
                 placeholder="Room Name"

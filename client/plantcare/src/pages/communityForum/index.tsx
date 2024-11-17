@@ -1,9 +1,6 @@
-import { FaUserPlus } from "react-icons/fa";
-import NewPost from "../../componets/blog/CreatePost";
+import { FaBell, FaComments, FaHome, FaPlus } from "react-icons/fa";
 import LeftSidebar from "../../componets/blog/LeftSideBar";
 import BlogPostList from "../../componets/blog/PostList";
-import ChatPage from "../ChatPage";
-
 
 const CommunityForumPage = () => {
   return (
@@ -13,9 +10,10 @@ const CommunityForumPage = () => {
       </header>
 
       <div className="community-forum-content">
-  
-         <LeftSidebar/>
+        {/* Left Sidebar */}
+        <LeftSidebar />
 
+        {/* Main Feed */}
         <div className="main-feed">
           <h3>Trending Posts</h3>
           <section className="post-list-section">
@@ -23,16 +21,24 @@ const CommunityForumPage = () => {
           </section>
         </div>
 
-    
+        {/* Right Sidebar */}
         <div className="right-sidebar">
-          <section className="create-post-section">
-          <button>
-                <FaUserPlus />
-                create a post
-              </button>
-            <NewPost />
-          </section>
-          <ChatPage />
+          <a href="/" className="sidebar-icon">
+            <FaHome />
+            <span>Home</span>
+          </a>
+          <a href="/create-post" className="sidebar-icon">
+            <FaPlus />
+            <span>Create Post</span>
+          </a>
+          <a href="/chat" className="sidebar-icon">
+            <FaComments />
+            <span>Chat</span>
+          </a>
+          <a href="/notifications" className="sidebar-icon">
+            <FaBell />
+            <span>Notifications</span>
+          </a>
         </div>
       </div>
     </div>

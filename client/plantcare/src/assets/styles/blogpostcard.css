@@ -5,7 +5,7 @@
   padding: 20px;
   margin-bottom: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
+  width: 85%;
   max-width: 600px;
   margin: 0 auto; /* Center the card */
 }
@@ -28,6 +28,12 @@
   margin-right: 10px;
   object-fit: cover;
 }
+.dot {
+  color: grey;
+  width: 3px;
+  height: 2px;
+  margin-right: 5px;
+}
 
 .author-info h4 {
   font-size: 1rem;
@@ -40,7 +46,7 @@
 }
 
 .post-title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
@@ -59,8 +65,13 @@
 .post-content {
   font-size: 1rem;
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  border-bottom: gray;
 }
 
 .read-more-link {
@@ -120,4 +131,19 @@
 .like-section:hover .like-icon,
 .comment-section:hover .comment-icon {
   color: #4caf50; /* Change color on hover */
+}
+
+/* Post Image */
+.post-image-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.post-image {
+  max-width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }

@@ -73,7 +73,7 @@ const PrivateMessage = ({ recipient }: { recipient?: userTypes }) => {
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type a private message..."
+                    placeholder="message..."
                 />
                 <button onClick={handleSendPrivateMessage}>Send</button>
             </div>

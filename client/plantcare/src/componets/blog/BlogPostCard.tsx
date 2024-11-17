@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FaComment, FaThumbsUp } from 'react-icons/fa';
-import { postTypes } from '../../Types';
 import '../../assets/styles/blogpostcard.css';
+import { postTypes } from '../../Types';
+import formatTimeAgo from '../../Utils';
 
 interface BlogPostCardProps {
   post: postTypes;
@@ -10,16 +11,14 @@ interface BlogPostCardProps {
 const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
   const [likes, setLikes] = useState<number>(post.likes || 0);  
   const [liked, setLiked] = useState<boolean>(false);  
+
   const toggleLike = () => {
     setLiked(!liked);
-    setLikes(liked ? likes - 1 : likes + 1); 
-
+    setLikes(liked ? likes - 1 : likes + 1);
   };
-
 
   return (
     <div className="blog-post-card">
-      {/* Author Profile */}
       <div className="author-profile">
         <img 
           src={`http://localhost:3000/${post.author.profilePhoto || 'uploads/default-placeholder.png'}`}
@@ -30,18 +29,31 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
           }}
         />
         <div className="author-info">
-          <h4>{post.author.name}|<span className='post-date'>{new Date(post.createdAt).toLocaleDateString()}</span></h4>
-          <p>@{post.author.name}</p>
+          <h4>
+            {post.author.name} <span className="dot">.</span>
+            <span className="post-date">{formatTimeAgo(new Date(post.createdAt))}</span>
+          </h4>
         </div>
       </div>
 
-      {/* Post Content */}
       <h3 className="post-title">{post.title}</h3>
-      {/* <p className="post-meta">by {post.author.name} on {new Date(post.createdAt).toLocaleDateString()}</p> */}
+
+      {post.imageUrl && (
+        <div className="post-image-container">
+          <img
+            src={`http://localhost:3000/${post.imageUrl}`}
+            alt={post.title}
+            className="post-image"
+            onError={(e) => {
+              e.currentTarget.src = 'https://via.placeholder.com/300'; 
+            }}
+          />
+        </div>
+      )}
+
       <p className="post-content">{post.content}</p>
       <a className="read-more-link" href={`/posts/${post.id}`}>Read More</a>
 
-      {/* Bottom Section: Likes and Comments */}
       <div className="post-actions">
         <div className="like-section" onClick={toggleLike}>
           <FaThumbsUp className={`like-icon ${liked ? 'liked' : ''}`} />

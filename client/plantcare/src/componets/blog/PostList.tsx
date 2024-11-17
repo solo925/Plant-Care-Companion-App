@@ -2,11 +2,9 @@ import { useContext, useEffect } from 'react';
 import { PlantCareContext, PlantCareContextProps } from '../../context';
 import BlogPostCard from './BlogPostCard';
 
-
 const BlogPostList = () => {
     const context = useContext(PlantCareContext) as PlantCareContextProps;
-    const { posts =[], setPosts } = context || {};
-
+    const { posts = [], setPosts } = context || {};
 
     useEffect(() => {
         if (!posts.length) {
@@ -17,21 +15,13 @@ const BlogPostList = () => {
         }
     }, [posts, setPosts]);
 
-    // const filterByCategory= (category: string) => {
-    //     setFilteredPosts(posts.filter((post: filterType) => post.category === category) || 'posts');
-    // };
+    
+    const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return (
         <div>
-            {/* <h2>Community Forum</h2> */}
-           
-            {/* <div>
-                <button onClick={() => setFilteredPosts(posts)}>All</button>
-                <button onClick={() => filterByCategory('Indoor')}>Indoor Plants</button>
-                <button onClick={() => filterByCategory('Outdoor')}>Outdoor Plants</button>
-            </div> */}
             <div className="post-list">
-                {posts.map(post => (
+                {sortedPosts.map(post => (
                     <BlogPostCard key={post.id} post={post} />
                 ))}
             </div>

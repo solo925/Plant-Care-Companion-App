@@ -62,10 +62,10 @@ export interface postTypes{
     author: userTypes;
     comments: commentTypes;
     likes?: number;
+    imageUrl?: any;
 }
 
 export interface roomTypes{
-
     id?: number;
     name?: string;
     description?: string;
@@ -78,6 +78,7 @@ export interface roomTypes{
 export interface messageType{
     id?: number;
     content?: string;
+    image?: string;
     createdAt?: Date;
     sender?: userTypes |null | undefined;
     recipient?: userTypes;

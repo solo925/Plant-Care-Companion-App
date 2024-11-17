@@ -7,7 +7,7 @@ import { Post } from '../../models/Post';
 export const PostController = express.Router();
 
 
-PostController.post('/', verifyToken, upload.single('image'), async (req: CustomRequest, res: Response): Promise<void> => {
+PostController.post('/', verifyToken, upload.single('imageUrl'), async (req: CustomRequest, res: Response): Promise<void> => {
     const { title, content, roomId } = req.body;
     const userId = req.user?.id;
     const imageUrl: any = req.file ? req.file.path : null;
