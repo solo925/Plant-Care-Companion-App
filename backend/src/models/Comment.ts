@@ -10,6 +10,9 @@ export class Comment {
     @Column("text")
     content!: string;
 
+    @Column({ nullable: true })
+    image?: string | null;
+
     @CreateDateColumn()
     createdAt!: Date;
 

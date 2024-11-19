@@ -1,12 +1,56 @@
-import React from "react";
-import { commentTypes } from "../../Types";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
+import { commentTypes } from '../../Types';
 
-const Comment: React.FC<{ comment: commentTypes }> = ({ comment }) => {
+interface CommentsProps {
+  postId: number;
+}
+
+const Comments: React.FC<CommentsProps> = ({ postId }) => {
+  const [comments, setComments] = useState<commentTypes[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`/api/comments/${postId}`);
+        setComments(response.data);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchComments();
+  }, [postId]);
+
   return (
-    <div className="comment">
-      <p>{comment.content}</p>
-      <small>By {comment.author.name} | {comment.createdAt.toLocaleString()}</small>
+    <div className="comments-section">
+      {isLoading ? (
+        <p>Loading comments...</p>
+      ) : (
+        comments.map((comment) => (
+          <div key={comment.id} className="comment">
+            <div className="comment-author">
+              <FaUserCircle className="profile-pic" />
+              <p>{comment.author.name}</p>
+              <small>{new Date(comment.createdAt).toLocaleString()}</small>
+            </div>
+            <p>{comment.content}</p>
+            {comment.image && (
+              <img
+                src={`http://localhost:3000/${comment.image}`}
+                alt="comment-img"
+                className="comment-image"
+              />
+            )}
+          </div>
+        ))
+      )}
     </div>
   );
 };
-export default Comment;
+
+export default Comments;

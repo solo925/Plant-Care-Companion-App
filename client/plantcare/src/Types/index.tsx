@@ -52,6 +52,7 @@ export interface commentTypes{
     createdAt: Date;
     author: userTypes;
     post?: postTypes;
+    image?: string;
 }
 
 export interface postTypes{

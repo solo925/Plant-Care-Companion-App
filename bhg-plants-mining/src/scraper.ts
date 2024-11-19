@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as fs from 'fs/promises';
 
-// Function to simulate delays
+
 function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -15,7 +15,7 @@ async function scrapePlantsData() {
         const { data } = await axios.get(url);
         const $ = cheerio.load(data);
 
-        // Loop through each plant element
+
         for (let i = 1; i <= 24; i++) {
             const selector = `#list-sc-item_${i}-0`;
             const plantElement = $(selector);
@@ -26,14 +26,14 @@ async function scrapePlantsData() {
             }
             console.log({ plantElement })
 
-            // Extract the plant title
+
             const title = plantElement.find('h2 span').text().trim();
 
-            // Extract the image URL
+
             const imageUrl = plantElement.find('figure .figure-media .img-placeholder img').attr('data-src') || plantElement.find('figure .figure-media .img-placeholder img').attr('src') || '';
 
 
-            // Extract description, growing conditions, and size from <p> tags
+
             const descriptionParagraphs = plantElement.find('p');
             let description = '';
             let growingConditions = '';
@@ -48,11 +48,11 @@ async function scrapePlantsData() {
 
             plants.push({ title, imageUrl, description, growingConditions, size });
 
-            // Delay between requests to avoid getting blocked
-            await delay(2000);  // 2-second delay
+
+            await delay(2000);
         }
 
-        // Save data to a JSON file
+
         await fs.writeFile('plants_data.json', JSON.stringify(plants, null, 2));
         console.log('Data saved to plants_data.json');
 

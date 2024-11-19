@@ -1,16 +1,18 @@
 import express, { Request, Response } from 'express';
 import { AppDataSource } from '../../config/data-source';
 import { CustomRequest, verifyToken } from '../../middlewares/Authmidlewares/IsAuthenticated';
+import { upload } from '../../middlewares/upload/UploadMiddleware';
 import { Comment } from '../../models/Comment';
 import { Post } from '../../models/Post';
 
 export const CommentController = express.Router();
 
 
-CommentController.post('/:postId', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
+CommentController.post('/:postId', verifyToken, upload.single('image'), async (req: CustomRequest, res: Response): Promise<void> => {
     const { postId } = req.params;
     const { content } = req.body;
     const userId = req.user?.id;
+    const image = req.file;
 
     if (!userId) {
         res.status(401).json({ message: 'User not authenticated' });
@@ -21,7 +23,6 @@ CommentController.post('/:postId', verifyToken, async (req: CustomRequest, res: 
         const commentRepository = AppDataSource.getRepository(Comment);
         const postRepository = AppDataSource.getRepository(Post);
 
-
         const post = await postRepository.findOne({ where: { id: parseInt(postId) } });
         if (!post) {
             res.status(404).json({ message: 'Post not found' });
@@ -31,7 +32,8 @@ CommentController.post('/:postId', verifyToken, async (req: CustomRequest, res: 
         const newComment = commentRepository.create({
             content,
             post,
-            author: { id: userId }
+            author: { id: userId },
+            image: image ? image.path : null,
         });
 
         await commentRepository.save(newComment);
@@ -41,7 +43,6 @@ CommentController.post('/:postId', verifyToken, async (req: CustomRequest, res: 
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 CommentController.get('/:postId', async (req: Request, res: Response): Promise<void> => {
     const { postId } = req.params;
@@ -53,12 +54,22 @@ CommentController.get('/:postId', async (req: Request, res: Response): Promise<v
             relations: ['author'],
         });
 
-        res.status(200).json(comments);
+
+        const responseComments = comments.map(comment => ({
+            ...comment,
+            author: {
+                name: comment.author.name,
+                photo: comment.author.profilePhoto,
+            }
+        }));
+
+        res.status(200).json(responseComments);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 
 CommentController.put('/:id', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {

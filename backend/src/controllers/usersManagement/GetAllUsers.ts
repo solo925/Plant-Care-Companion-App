@@ -27,7 +27,7 @@ UserController.get('/', async (req: Request, res: Response) => {
 
 
 UserController.get('/me', async (req: Request, res: Response): Promise<void> => {
-    const token = req.headers['authorization']?.split(' ')[1];  // Get token from Authorization header
+    const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
         res.status(401).json({ message: 'Token is required' });
         return;
