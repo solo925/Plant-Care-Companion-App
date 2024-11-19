@@ -46,9 +46,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
     try {
       const response = await fetch(`http://localhost:3000/api/v1/comments/${post.id}`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
+        credentials: 'include',
         body: formData,
       });
 

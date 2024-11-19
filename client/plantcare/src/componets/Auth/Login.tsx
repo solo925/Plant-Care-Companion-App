@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { userTypes } from "../../Types"; // Ensure you have imported the correct type for `userTypes`
+import { userTypes } from "../../Types";
 
 interface LoginProps {
     setLoading: (loading: boolean) => void;
@@ -20,13 +20,14 @@ function Login({ setLoading, setUser }: LoginProps) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
+                credentials: 'include'
             });
 
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem('token', data.token);
                 setUser(data.user); 
-                window.location.href = 'http://localhost:5173';  
+                window.location.href = 'http://localhost:5173'; 
+                
             } else {
                 console.log(data.message);
             }

@@ -33,16 +33,21 @@ CommentController.post('/:postId', verifyToken, upload.single('image'), async (r
             content,
             post,
             author: { id: userId },
-            image: image ? image.path : null,
+            image: image ? image.path : undefined,
         });
 
         await commentRepository.save(newComment);
-        res.status(201).json(newComment);
+
+        res.status(201).json({
+            message: 'Comment posted successfully',
+            comment: newComment,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 CommentController.get('/:postId', async (req: Request, res: Response): Promise<void> => {
     const { postId } = req.params;

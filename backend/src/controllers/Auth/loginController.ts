@@ -15,32 +15,35 @@ LoginController.post('/', async (req: Request, res: Response): Promise<void> => 
         return;
     }
 
-
     const { email, password } = value;
 
     try {
-
         const userRepository = AppDataSource.getRepository(User);
-
-
         const user = await userRepository.findOne({ where: { email } });
+
         if (!user) {
             res.status(400).json({ message: 'Invalid email or password' });
             return;
         }
 
-
         const isMatch = await bcrypt.compare(password, user.password);
+
         if (!isMatch) {
             res.status(400).json({ message: 'Invalid email or password' });
             return;
         }
 
-
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            maxAge: 3600 * 1000,
+        });
+        console.log('Token cookie set:', token);
 
-        res.status(200).json({ user: { id: user.id, name: user.name, email: user.email, profilePhoto: user.profilePhoto }, token });
+        res.status(200).json({ user: { id: user.id, name: user.name, email: user.email, profilePhoto: user.profilePhoto } });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

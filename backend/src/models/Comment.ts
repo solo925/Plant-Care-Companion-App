@@ -11,7 +11,7 @@ export class Comment {
     content!: string;
 
     @Column({ nullable: true })
-    image?: string | null;
+    image?: string;
 
     @CreateDateColumn()
     createdAt!: Date;

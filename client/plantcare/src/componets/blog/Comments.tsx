@@ -1,13 +1,13 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { commentTypes } from '../../Types';
 
 interface CommentsProps {
-  postId: number;
+  postId?: number;
+  comment?: commentTypes;
 }
 
-const Comments: React.FC<CommentsProps> = ({ postId }) => {
+const Comments: React.FC<CommentsProps> = ({ postId,comment}) => {
   const [comments, setComments] = useState<commentTypes[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -15,14 +15,26 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     const fetchComments = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`/api/comments/${postId}`);
-        setComments(response.data);
+        const response = await fetch(`/api/comments/${postId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setComments(data);
+        } else {
+          console.error('Failed to fetch comments:', response.statusText);
+        }
       } catch (error) {
         console.error('Error fetching comments:', error);
       } finally {
         setIsLoading(false);
       }
     };
+
     fetchComments();
   }, [postId]);
 
