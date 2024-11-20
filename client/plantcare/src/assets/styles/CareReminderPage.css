@@ -1,0 +1,74 @@
+.care-reminder-page {
+  background-color: #f0f9f0;
+  color: #2e7d32;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.care-reminder-page h1 {
+  text-align: center;
+  color: #1b5e20;
+}
+
+.reminder-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.reminder-card {
+  background-color: #ffffff;
+  border: 1px solid #c8e6c9;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reminder-card h3 {
+  color: #388e3c;
+}
+
+.reminder-card span {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #6d6d6d;
+}
+
+.add-reminder {
+  background-color: #e8f5e9;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.add-reminder h2 {
+  color: #2e7d32;
+}
+
+.add-reminder input,
+.add-reminder textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+}
+
+.add-reminder button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-reminder button:hover {
+  background-color: #388e3c;
+}

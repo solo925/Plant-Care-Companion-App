@@ -1,0 +1,176 @@
+Overall container for the forum page .community-forum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Forum header */
+.forum-header {
+  background-color: #fff;
+  width: 100%;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+/* Flexbox layout for content */
+.community-forum-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  gap: 2rem;
+  margin-bottom: 5px;
+}
+
+/* Left sidebar: User Profile, Online Users, Notifications */
+.left-sidebar {
+  flex: 0 0 300px;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
+  height: fit-content;
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.online-users ul {
+  list-style: none;
+  padding: 0;
+}
+
+.online-users li {
+  margin: 0.5rem 0;
+}
+
+.notifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications li {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Styling the filter buttons */
+button {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding inside the button */
+  margin: 5px; /* Space between buttons */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1rem; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Change the background color on hover */
+button:hover {
+  background-color: #45a049; /* Darker green when hovering */
+}
+
+/* Ensure that buttons are visible and aligned properly */
+button:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.5); /* Add a subtle green outline on focus */
+}
+
+/* Main Feed (Middle Section): Trending Posts, Post List */
+.main-feed {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-right: 1rem;
+  width: 400px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Right Sidebar: Create Post Section, Chat Page */
+.right-sidebar {
+  flex: 0 0 80px; /* Reduced width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  gap: 1.5rem; /* Spacing between icons */
+  margin-left: 1rem;
+}
+
+/* Sidebar Icon Styling */
+.right-sidebar .sidebar-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #4caf50; /* Green theme */
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.right-sidebar .sidebar-icon:hover {
+  color: #45a049; /* Darker green on hover */
+}
+
+.right-sidebar .sidebar-icon span {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  text-align: center;
+}
+
+.right-sidebar .sidebar-icon svg {
+  font-size: 1.5rem; /* Icon size */
+}
+
+/* Sidebar Focus Effect */
+.right-sidebar .sidebar-icon:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.5); /* Green focus outline */
+}
+
+@media (max-width: 768px) {
+  .community-forum-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .left-sidebar,
+  .right-sidebar {
+    flex: 0 0 100%;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  .main-feed {
+    margin-right: 0;
+  }
+}
