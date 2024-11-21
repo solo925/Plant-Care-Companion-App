@@ -7,15 +7,18 @@ import './assets/styles/Rooms.css'
 import './assets/styles/communityForum.css'
 import Registration from './componets/Auth/Registration'
 import CreateRoom from './componets/CommunicationForum/CreateRoom'
+import MyPlantsPage from './componets/Plants/MyPlants'
 import Plants from './componets/Plants/Plants'
 import SinglePlantTile from './componets/Plants/singlePlantsTile'
 import NewPost from './componets/blog/CreatePost'
+import PostDetail from './componets/blog/PostDetail'
 import LoginPage from './pages/Auth/Login'
 import ChatPage from './pages/ChatPage'
 import DashboardPage from './pages/Dashboard/dashboardPage'
 import HomePage from './pages/Home'
 import CommunityForumPage from './pages/communityForum'
 import PlantCareTipsPage from './pages/plantCaretips'
+import CareReminderPage from './pages/plantCaretips/CareReminder'
 
 function App() {
 
@@ -35,6 +38,9 @@ function App() {
         <Route path='/plants/:id' element={<SinglePlantTile/>} />
         <Route path='/create-post' element={<NewPost />} />
         <Route path='/care-tips' element={<PlantCareTipsPage />} />
+        <Route path='/post/:postId' element={<PostDetail/>} />
+        <Route path='//care-reminder/:plantId' element={<CareReminderPage/>} />
+        <Route path='/my-plants' element={<MyPlantsPage/>} />
 
         
      

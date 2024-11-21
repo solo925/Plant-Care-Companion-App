@@ -25,8 +25,13 @@ const NewPost = () => {
         }
     
         try {
+            const token = sessionStorage.getItem('token');
+            console.log('Token:', token);
             const response = await fetch('http://localhost:3000/api/v1/post', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
                 body: formData,
             });
     

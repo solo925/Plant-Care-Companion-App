@@ -1,18 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-
-
 export interface CustomRequest extends Request {
-    user?: {
-        id: string;
-    };
+    user?: { id: string };
 }
 
-
 export const verifyToken: any = (req: CustomRequest, res: Response, next: NextFunction) => {
-    console.log('Cookies:', req.cookies);
-    const token = req.cookies.token;
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({ message: 'Access Denied. No token provided.' });
@@ -26,6 +21,3 @@ export const verifyToken: any = (req: CustomRequest, res: Response, next: NextFu
         res.status(403).json({ message: 'Invalid token' });
     }
 };
-
-
-

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import CareReminder from './careReminder';
 import Plant3DModel from './Plant3Dmoedl';
 import PlantHealthLog from './PlantHealth';
@@ -17,6 +17,9 @@ export class Plant {
 
     @Column()
     wateringFrequency!: string;
+
+    @ManyToMany(() => User, (user) => user.ownedPlants)
+    owners!: User[];
 
     @Column({ type: 'timestamp', nullable: true })
     lastWatered!: Date | null;

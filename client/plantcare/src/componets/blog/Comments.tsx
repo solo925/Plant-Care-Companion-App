@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
 import { commentTypes } from '../../Types';
+import "../../assets/styles/comments.css";
 
 interface CommentsProps {
   postId?: number;
   comment?: commentTypes;
 }
 
-const Comments: React.FC<CommentsProps> = ({ postId,comment}) => {
-  const [comments, setComments] = useState<commentTypes[]>([]);
+const Comments: React.FC<CommentsProps> = ({ postId, comment }) => {
+  const [comments, setComments] = useState<commentTypes[]>(comment ? [comment] : []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!postId) return;
+
     const fetchComments = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/comments/${postId}`, {
+        const response = await fetch(`http://localhost:3000/api/v1/comments/${postId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
           },
         });
 
@@ -43,18 +46,29 @@ const Comments: React.FC<CommentsProps> = ({ postId,comment}) => {
       {isLoading ? (
         <p>Loading comments...</p>
       ) : (
-        comments.map((comment) => (
-          <div key={comment.id} className="comment">
-            <div className="comment-author">
-              <FaUserCircle className="profile-pic" />
-              <p>{comment.author.name}</p>
-              <small>{new Date(comment.createdAt).toLocaleString()}</small>
-            </div>
-            <p>{comment.content}</p>
-            {comment.image && (
+        comments.map((c) => (
+          <div key={c.id} className="comment">
+            <div className="comment-header">
               <img
-                src={`http://localhost:3000/${comment.image}`}
-                alt="comment-img"
+                src={`http://localhost:3000/${c.author.profilePhoto || 'uploads/default-placeholder.png'}`}
+                alt={c.author.name}
+                className="author-avatar"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://via.placeholder.com/100';
+                }}
+              />
+              <div className="comment-author-info">
+                <p className="author-name">{c.author.name}</p>
+                <small className="comment-date">
+                  {new Date(c.createdAt).toLocaleString()}
+                </small>
+              </div>
+            </div>
+            <p className="comment-content">{c.content}</p>
+            {c.image && (
+              <img
+                src={`http://localhost:3000/${c.image}`}
+                alt="Comment"
                 className="comment-image"
               />
             )}

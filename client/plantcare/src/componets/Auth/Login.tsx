@@ -14,22 +14,23 @@ function Login({ setLoading, setUser }: LoginProps) {
         e.preventDefault();
         try {
             setLoading(true);
+            const token = sessionStorage.getItem('token'); 
             const response = await fetch('http://localhost:3000/api/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': token || '',
                 },
                 body: JSON.stringify({ email, password }),
-                credentials: 'include'
             });
 
             const data = await response.json();
             if (response.ok) {
-                setUser(data.user); 
+                setUser(data.user);
+                sessionStorage.setItem('token', data.token); 
                 window.location.href = 'http://localhost:5173'; 
-                
             } else {
-                console.log(data.message);
+                console.log(data.message); 
             }
         } catch (error) {
             console.error(error);

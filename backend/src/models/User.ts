@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import CareReminder from './careReminder';
 import { Comment } from './Comment';
 import { Message } from './Message';
@@ -26,6 +26,8 @@ export class User {
     profilePhoto?: string;
 
 
+
+
     @Column({ nullable: true })
     resetPasswordToken?: string;
 
@@ -35,6 +37,10 @@ export class User {
 
     @OneToMany(() => Plant, (plant) => plant.user)
     plants!: Plant[];
+
+    @ManyToMany(() => Plant, (plant) => plant.owners)
+    @JoinTable()
+    ownedPlants!: Plant[];
 
     @OneToMany(() => CareReminder, (reminder) => reminder.user)
     reminders!: CareReminder[];

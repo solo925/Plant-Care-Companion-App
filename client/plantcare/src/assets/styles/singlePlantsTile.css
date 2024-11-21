@@ -2,12 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-spacing-trim: 1rem;
   padding: 2rem;
   background-color: #fefefe;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  width: 700px;
   margin: 2rem auto;
+  height: fit-content;
 }
 
 .single-plant-image {
@@ -16,6 +18,21 @@
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 1.5rem;
+}
+
+.plant-details-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.buy-button {
+  width: 150px;
+}
+.own-button {
+  width: 150px;
+}
+.vr-test {
+  width: 150px;
 }
 
 .single-plant-details h2 {

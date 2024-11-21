@@ -42,12 +42,12 @@ RegistrationController.post('/', async (req: Request, res: Response): Promise<vo
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 3600 * 1000,
-        });
+        // res.cookie('token', token, {
+        //     httpOnly: true,
+        //     secure: false,
+        //     sameSite: 'strict',
+        //     maxAge: 3600 * 1000,
+        // });
 
         res.status(201).json({ user: { id: user.id, name: user.name, email: user.email } });
     } catch (error) {
