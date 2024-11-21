@@ -1,4 +1,3 @@
-// components/Activities.tsx
 import React from "react";
 
 const Activities: React.FC = () => {

@@ -30,7 +30,7 @@ function SinglePlantTile() {
     const response = await fetch(`http://localhost:3000/api/v1/plants/user/plants/${plantId}`, {
       method: 'POST',
       headers: {
-        'cointent-type': 'application/json',
+        'content-type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
       },
     });
@@ -47,7 +47,6 @@ function SinglePlantTile() {
         <h2>{plant.name}</h2>
         <p>{plant.description}</p>
         <p><strong>Watering Frequency:</strong> {plant.wateringFrequency}</p>
-        <p><strong>Growing Conditions:</strong> {plant.wateringFrequency}</p>
       </div>
       <div className="plant-details-actions">
             <button className="buy-button">Buy</button>

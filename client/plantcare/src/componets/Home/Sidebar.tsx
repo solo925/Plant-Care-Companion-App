@@ -1,10 +1,13 @@
-// components/Sidebar.tsx
 import React from "react";
 import { FaBell, FaCog, FaHeartbeat, FaHome, FaLeaf, FaSignOutAlt } from "react-icons/fa";
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" style={
+      {
+        'width': '320px',
+       
+      }}>
       <h3 className="sidebar-title">Plant Database</h3>
       <nav>
         <ul>
