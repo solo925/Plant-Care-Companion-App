@@ -1,0 +1,30 @@
+.track-health-page {
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.plant-details {
+  margin-top: 20px;
+}
+
+.plant-image {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.track-health-actions button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.track-health-actions button:hover {
+  background-color: #45a049;
+}

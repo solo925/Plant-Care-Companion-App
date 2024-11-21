@@ -37,7 +37,6 @@ const LeftSidebar: React.FC = () => {
 
             
         <h3>{user?.name}</h3>
-        <p>@{user?.name}</p>
           </div>
         
 

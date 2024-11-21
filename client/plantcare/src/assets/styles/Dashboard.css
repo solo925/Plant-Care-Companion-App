@@ -1,37 +1,105 @@
-.dashboard {
-  background-color: #e8f5e9;
-  color: #1b5e20;
-  padding: 20px;
-  height: 100vh;
-}
-
-.dashboard-header {
+.dashboard-page {
   display: flex;
-  justify-content: space-between;
+  height: 100vh;
+  background: #f9f9f9;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 20px;
+  background: white;
+  overflow-y: auto;
+}
+.dashboard-content h1 {
+  font-size: 35px;
+  font-weight: 300;
+  color: #4caf50;
+}
+
+.dashboard-header h1 {
+  font-size: 35px;
+  font-weight: 400;
+  margin-bottom: 50px;
+  color: rgb(10, 145, 10);
+}
+.dashboard-header nav {
+  display: flex;
+  justify-content: space-around;
   align-items: center;
-  background-color: #2e7d32;
-  color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 8px;
+  margin: 20px;
 }
-
 .dashboard-header nav a {
-  color: #ffffff;
-  margin-right: 15px;
   text-decoration: none;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
-
 .dashboard-header nav a:hover {
-  text-decoration: underline;
+  background-color: #4caf50;
+  color: #ffffff;
 }
 
-.dashboard-content {
+.user-profile-card {
+  width: 300px;
+  background: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.user-profile-card .profile-header {
+  margin-bottom: 15px;
+}
+
+.user-profile-card .user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-profile-card .profile-details h2 {
+  font-size: 1em;
+  margin: 10px 0;
+  font-size: medium;
+}
+
+.user-profile-card .profile-details p {
+  font-size: 1em;
+  color: #7f8c8d;
+}
+
+/* src/styles.css or any relevant CSS file */
+
+.reminder-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #c8e6c9;
 }
 
-.dashboard-content h2 {
-  color: #388e3c;
+.reminder-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.reminder-button:hover {
+  background-color: #45a049;
+}
+
+.reminder-button svg {
+  margin-right: 10px;
 }

@@ -32,6 +32,7 @@ export interface PlantType {
     createdAt?: Date;
     updatedAt?: Date;
     user?: userTypes;
+    growthStage?: string;
 }
 export interface careReminderTypes{
     id: string; 

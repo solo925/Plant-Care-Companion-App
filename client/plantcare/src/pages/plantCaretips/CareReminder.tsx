@@ -13,7 +13,7 @@ const CareReminderPage: React.FC = () => {
     reminderTime: '', 
   });
 
-  // Fetch reminders
+ 
   const fetchReminders = async () => {
     if (!plantId) return;
     try {

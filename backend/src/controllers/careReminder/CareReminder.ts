@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express';
+import { In } from 'typeorm/find-options/operator/In';
 import { AppDataSource } from '../../config/data-source';
 import { verifyToken } from '../../middlewares/Authmidlewares/IsAuthenticated';
 import CareReminder from '../../models/careReminder';
 import Plant from '../../models/Plant';
+
 
 
 export const CareReminderController = express.Router();
@@ -76,5 +78,63 @@ CareReminderController.get('/plant/:plantId', async (req: Request, res: Response
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+
+CareReminderController.get('/user/reminders', verifyToken, async (req: R1, res: Response): Promise<void> => {
+    const userId = req.user?.id; // Ensure userId is coming from the authenticated user
+    console.log(userId);
+
+    if (!userId) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+    }
+
+    try {
+        // Fetch the plants owned by the user using the relationship in the Plant model
+        const userOwnedPlants = await AppDataSource.getRepository(Plant).find({
+            where: {
+                owners: {
+                    id: userId,
+                },
+            },
+            relations: ['owners'], // Fetch the owners relation to ensure it works
+        });
+
+        // If the user doesn't own any plants
+        if (userOwnedPlants.length === 0) {
+            res.status(200).json({ message: 'No plants or reminders found.' });
+            return;
+        }
+
+        // Get the plant ids of the owned plants
+        const plantIds = userOwnedPlants.map((plant) => plant.id);
+
+        // Fetch the reminders for the plants owned by the user
+        const reminders = await AppDataSource.getRepository(CareReminder).find({
+            where: { plantId: In(plantIds) },
+        });
+
+        // Combine plant details with their reminders
+        const remindersWithPlantDetails = reminders.map((reminder) => {
+            const plant = userOwnedPlants.find((p) => parseInt(p.id, 10) === reminder.plantId); // Match plant by id
+            return {
+                reminderId: reminder.id,
+                task: reminder.description,
+                dueDate: reminder.reminderDate,
+                plantId: plant?.id,
+                plantName: plant?.name,
+                plantImage: plant?.imageUrl,
+            };
+        });
+
+        // Send the response with the plant and reminder details
+        res.status(200).json(remindersWithPlantDetails);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 
 export default CareReminderController;

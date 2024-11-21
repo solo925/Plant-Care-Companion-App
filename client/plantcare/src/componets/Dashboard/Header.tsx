@@ -9,11 +9,6 @@ const DashboardHeader = () => {
     return (
         <header className='dashboard-header'>
             <h1>{`Welcome ${user?.name|| 'User'} to your dashboard`}</h1>
-            <nav>
-                <a href="/profile">Profile</a>
-                <a href="/plants">Plants</a>
-                <a href="/community">Community</a>
-            </nav>
         </header>
     );
 };

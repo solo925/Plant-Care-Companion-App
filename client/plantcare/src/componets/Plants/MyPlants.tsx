@@ -44,6 +44,11 @@ function MyPlantsPage() {
     navigate(`/care-reminder/${plantId}`);
   };
 
+  const handleTrackHealth = (plantId: string) => {
+    navigate(`/track-health/${plantId}`);
+};
+
+
   return (
     <div className="my-plants-container">
       <h1>My Plants</h1>
@@ -55,8 +60,9 @@ function MyPlantsPage() {
             {
               plant.id && (
                 <>
-                <button onClick={() => handleViewPlantCare(plant.id!)}>View Care Reminder</button>
+                <button onClick={() => handleViewPlantCare(plant.id!)}>Add Care Reminder</button>
                 <button onClick={() => handleDisownPlant(plant.id!)}>Disown Plant</button>
+                <button onClick={() => handleTrackHealth(plant.id!)}>Track Health</button>
                 </>
               )
             }
