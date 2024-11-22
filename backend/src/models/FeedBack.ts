@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import PlantHealthLog from './PlantHealth';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Feedback {
@@ -9,6 +8,4 @@ export class Feedback {
     @Column()
     message!: string;
 
-    @ManyToOne(() => PlantHealthLog, (healthLog) => healthLog.feedbacks)
-    healthLog!: PlantHealthLog;
 }

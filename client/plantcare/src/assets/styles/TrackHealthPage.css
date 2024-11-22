@@ -1,18 +1,9 @@
-.track-health-page {
-  text-align: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.plant-details {
-  margin-top: 20px;
-}
-
 .plant-image {
-  width: 200px;
-  height: auto;
+  width: 350px !important;
+  height: 50px;
   border-radius: 10px;
   margin-bottom: 10px;
+  object-fit: cover;
 }
 
 .track-health-actions button {
@@ -35,20 +26,27 @@
   padding: 2rem;
 }
 
-.sidebar {
-  flex: 1;
-  border-right: 2px solid #e0e0e0;
+.sidebar-H {
+  flex: 0 0 500px;
   padding-right: 1rem;
+  height: min-content;
+}
+.sidebar-H h2 {
+  justify-self: left;
+  margin-left: 80px;
 }
 
-.sidebar .plant-image {
+.sidebar-H .plant-image {
   width: 100%;
   height: auto;
   margin-bottom: 1rem;
 }
 
 .content {
-  flex: 2;
+  flex: 1;
+}
+.content h1 {
+  font-size: 30px;
 }
 
 .health-section,
@@ -68,4 +66,86 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.progress-bar {
+  height: 20px;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.upload-container {
+  margin: 20px 0;
+}
+
+.upload-button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.upload-button:hover {
+  background-color: #45a049;
+}
+
+.loading-message {
+  font-style: italic;
+  color: gray;
+}
+
+.health-info h3 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.health-info p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+.health-info {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin-top: 20px;
+  background-color: floralwhite;
+  text-align: left;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin-top: 20px;
+  background-color: floralwhite;
+  text-align: left;
+}
+
+.Plant-d {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+  margin-left: 70px;
+  text-align: left;
+}
+
+.plant-d h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  justify-self: left;
+}
+
+.plant-d p {
+  font-size: 1rem;
+  justify-self: left;
 }

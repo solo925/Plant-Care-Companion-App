@@ -1,39 +1,32 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Feedback } from './FeedBack';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Plant } from './Plant';
 import { User } from './User';
 
 @Entity()
 export class PlantHealthLog {
     @PrimaryGeneratedColumn()
-    id!: string
+    id!: string;
+
+    @Column({ type: 'text' })
+    healthStatus!: string;
+
+    @Column({ type: 'float' })
+    percentage!: number;
 
     @Column({ type: 'text', nullable: true })
-    leafColor?: string;
+    possibleCauses?: string;
 
     @Column({ type: 'text', nullable: true })
-    growthProgress?: string;
-
-    @Column({ type: 'text', nullable: true })
-    moistureLevel?: string;
-
-    @Column({ type: 'text', nullable: true })
-    pestPresence?: string;
-
-    @Column({ type: 'text', nullable: true })
-    otherNotes?: string;
+    preventiveMeasures?: string;
 
     @CreateDateColumn()
     observationDate!: Date;
 
     @ManyToOne(() => Plant, (plant) => plant.healthLogs, { onDelete: 'CASCADE' })
-    plant!: Plant | null;
+    plant!: Plant;
 
     @ManyToOne(() => User, (user) => user.healthLogs, { onDelete: 'CASCADE' })
-    user!: User | null;
-
-    @OneToMany(() => Feedback, (feedback) => feedback.healthLog, { onDelete: 'CASCADE' })
-    feedbacks!: Feedback[];
+    user!: User;
 }
 
 export default PlantHealthLog;

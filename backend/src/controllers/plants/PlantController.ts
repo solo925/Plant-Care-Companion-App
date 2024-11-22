@@ -51,7 +51,11 @@ PlantController.post('/', verifyToken, async (req: R, res: Response): Promise<vo
 PlantController.get('/all', async (req: Request, res: Response): Promise<void> => {
     try {
         const plantRepository = AppDataSource.getRepository(Plant)
-        const plants = await plantRepository.find()
+        const plants = await plantRepository.find({
+            order: {
+                id: 'DESC',
+            },
+        });
         res.status(200).json(plants)
 
 

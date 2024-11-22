@@ -102,10 +102,14 @@ export interface plantHealthLogTypes{
     moistureLevel?: string;
     pestPresence?: string;
     otherNotes?: string;
-    observationDate: Date;
-    plant:PlantType | null;
-    user: userTypes | null;
-    feedbacks:feedbackTypes[];
+    observationDate?: Date;
+    plant?:PlantType | null;
+    user?: userTypes | null;
+    feedbacks?: feedbackTypes[];
+    healthStatus?: any;
+    percentage?:number; 
+    possibleCauses?: string;
+    preventiveMeasures?: string;
 }
 
 

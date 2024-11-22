@@ -1,6 +1,5 @@
-// src/pages/DashboardContent.tsx
 import { useEffect, useState } from 'react';
-import { FaRegBell } from 'react-icons/fa'; // Importing a bell icon for reminders
+import { FaRegBell } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { PlantType } from '../../Types';
 import MyPlantsPage from '../Plants/MyPlants';
@@ -20,7 +19,6 @@ function DashboardContent() {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    // Set owned plants based on reminders
                     setOwnedPlants(data.map((reminder: { plantId: string, plant: { name: string, imageUrl: string } }) => ({
                         id: reminder.plantId,
                         name: reminder.plant.name,

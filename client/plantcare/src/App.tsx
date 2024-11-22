@@ -16,6 +16,7 @@ import LoginPage from './pages/Auth/Login'
 import ChatPage from './pages/ChatPage'
 import MyRemindersPage from './pages/Dashboard/MyRemindersPage'
 import DashboardPage from './pages/Dashboard/dashboardPage'
+import HealthHistoryPage from './pages/Health/HealthHistory'
 import TrackHealthPage from './pages/Health/TrackHealthPage'
 import HomePage from './pages/Home'
 import CommunityForumPage from './pages/communityForum'
@@ -41,14 +42,11 @@ function App() {
         <Route path='/create-post' element={<NewPost />} />
         <Route path='/care-tips' element={<PlantCareTipsPage />} />
         <Route path='/post/:postId' element={<PostDetail/>} />
-        <Route path='//care-reminder/:plantId' element={<CareReminderPage/>} />
+        <Route path='/care-reminder/:plantId' element={<CareReminderPage/>} />
         <Route path='/my-plants' element={<MyPlantsPage />} />
         <Route path="/reminders" element={<MyRemindersPage />} />
         <Route path="/track-health/:plantId" element={<TrackHealthPage />} />
-
-        
-     
-        
+        <Route path="/health-history/:plantId" element={<HealthHistoryPage />} />
     </Routes>
   
 
