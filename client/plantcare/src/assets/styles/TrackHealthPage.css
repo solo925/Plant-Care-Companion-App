@@ -28,3 +28,44 @@
 .track-health-actions button:hover {
   background-color: #45a049;
 }
+
+.track-health-page {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.sidebar {
+  flex: 1;
+  border-right: 2px solid #e0e0e0;
+  padding-right: 1rem;
+}
+
+.sidebar .plant-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.content {
+  flex: 2;
+}
+
+.health-section,
+.care-section,
+.explore-section {
+  margin-top: 2rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

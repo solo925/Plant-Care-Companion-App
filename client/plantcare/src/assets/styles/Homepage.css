@@ -1,56 +1,31 @@
-body {
-  margin: 0;
-  font-family: "Arial", sans-serif;
-  box-sizing: border-box;
-}
-
 .homepage {
   display: flex;
-  width: 100%;
-  height: 100vh;
-}
-
-.sidebar-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar ul li {
-  margin: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-}
-
-.sidebar ul li .icon {
-  margin: 0px;
 }
 
 .main-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  justify-content: right;
+  align-self: start;
+}
+.header h1 {
+  font-size: 1.8rem;
+  margin-left: 20px;
+}
+.header p {
+  align-self: start;
+  margin-left: 20px;
 }
 
 .header-title {
-  font-size: 1.8rem;
-}
-
-.header-subtitle {
-  color: #555;
   font-size: 1rem;
 }
 
@@ -61,12 +36,14 @@ body {
 }
 
 .plant-gallery,
+.activities,
 .forum-feed,
 .discussion {
-  background: white;
+  background: rgb(195, 224, 195);
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .activities {
@@ -74,8 +51,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: right;
-  align-items: start;
-  width: 700px;
+  align-items: center;
+  width: 620px;
 }
 .activities h3 {
   font-size: medium;
@@ -92,4 +69,47 @@ body {
   height: 90px;
   width: 90px;
   cursor: pointer;
+}
+
+.plant-gallery {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  height: 150px;
+}
+
+.section-title {
+  display: flex;
+  font-size: medium;
+  color: black;
+  justify-self: left;
+  margin-left: 20px;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-left: 20px;
+  margin-bottom: 50px;
+  justify-self: left;
+}
+
+.images button {
+  color: white;
+  background-color: #4caf50;
+  width: 80px;
+  height: 80px;
+}
+
+.images button:hover {
+  background-color: green;
+}
+
+.images img {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
 }

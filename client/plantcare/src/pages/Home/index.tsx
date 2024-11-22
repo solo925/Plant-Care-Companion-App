@@ -1,4 +1,3 @@
-// pages/HomePage.tsx
 import React from "react";
 import "../../assets//styles/Homepage.css";
 import Activities from "../../componets/Home/Activities";
@@ -23,7 +22,7 @@ const HomePage: React.FC = () => {
             <ForumFeed />
           </div>
         </div>
-        <Activities />
+          <Activities />
       </div>
     </div>
   );

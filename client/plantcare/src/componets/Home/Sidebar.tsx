@@ -1,13 +1,10 @@
 import React from "react";
 import { FaBell, FaCog, FaHeartbeat, FaHome, FaLeaf, FaSignOutAlt } from "react-icons/fa";
+import '../../assets/styles/sudosidebar.css';
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="sidebar" style={
-      {
-        'width': '320px',
-       
-      }}>
+    <aside className="sidebar">
       <h3 className="sidebar-title">Plant Database</h3>
       <nav>
         <ul>
@@ -27,14 +24,16 @@ const Sidebar: React.FC = () => {
             <FaHeartbeat className="icon" />
             Track Health
           </li>
+          <div className="down">
           <li>
-            <FaCog className="icon" />
+            <FaCog className="icon-down" />
             Settings
           </li>
           <li>
-            <FaSignOutAlt className="icon" />
+            <FaSignOutAlt className="icon-down" />
             Sign Out
-          </li>
+            </li>
+          </div>
         </ul>
       </nav>
     </aside>
