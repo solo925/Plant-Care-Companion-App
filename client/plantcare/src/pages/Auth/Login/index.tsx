@@ -37,7 +37,7 @@ function LoginPage() {
 
     return (
         <div>
-            <h2>Login</h2>
+          
             {loading && <h3>Please wait, loading login form...</h3>}
             {/* Passing setUser to Login Component */}
             <Login setLoading={setLoading} setUser={contextSetUser} />

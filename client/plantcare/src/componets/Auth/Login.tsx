@@ -28,7 +28,7 @@ function Login({ setLoading, setUser }: LoginProps) {
             if (response.ok) {
                 setUser(data.user);
                 sessionStorage.setItem('token', data.token); 
-                window.location.href = 'http://localhost:5173'; 
+                window.location.href = 'http://localhost:5173/home'; 
             } else {
                 console.log(data.message); 
             }
@@ -42,21 +42,26 @@ function Login({ setLoading, setUser }: LoginProps) {
     return (
         <form onSubmit={handleLogin}>
             <div className="loginform">
-                <input
+                <h2>Login</h2>
+                <input className="login-input"
                     type="email"
                     placeholder="email@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                   
                 />
                 <input
+                    className="login-input"
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-            </div>
+           
             <div className="login-button">
                 <button type="submit">Login</button>
+                </div>
+                <p>Don't have an account? <a href="">Register</a></p>
             </div>
         </form>
     );

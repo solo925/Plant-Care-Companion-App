@@ -18,19 +18,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.regiister {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  justify-items: center;
-  flex-wrap: wrap;
-  width: 400px;
-  height: 400px;
-  background: gray;
-}
-
 .input {
   display: flex;
   flex-direction: column;

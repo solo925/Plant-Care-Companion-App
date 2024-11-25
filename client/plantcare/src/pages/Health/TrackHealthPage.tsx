@@ -1,12 +1,11 @@
 import * as tmImage from "@teachablemachine/image";
-import dotenv from 'dotenv';
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../assets/styles/TrackHealthPage.css";
 import { PlantCareContext, PlantCareContextProps } from "../../context";
 import { PlantType } from "../../Types";
 
-dotenv.config();
+
 
 function TrackHealthPage() {
     const { plantId } = useParams<{ plantId: string }>();
@@ -19,7 +18,7 @@ function TrackHealthPage() {
     const [leafImage, setLeafImage] = useState<File | null>(null);
     const [loadingPrediction, setLoadingPrediction] = useState<boolean>(false);
 
-    const MODEL_URL = process.env.MODEL_URL;
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/CLT8ftR-4/";
 
     useEffect(() => {
         if (!plants || plants.length === 0) {

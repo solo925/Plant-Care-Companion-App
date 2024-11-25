@@ -7,42 +7,37 @@
   background-color: #f7f7f7;
   padding: 20px;
 }
+.login-input {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  margin-bottom: 50px;
+  border-color: green;
+  width: 70%;
+  padding: 12px;
+}
 
-h2 {
-  font-size: 2rem;
-  color: #4caf50;
+.loginform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 90vh;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.loginform h2 {
+  color: green;
+}
+
+.login-button {
   margin-bottom: 20px;
 }
 
-input {
-  padding: 10px;
-  font-size: 1rem;
-  width: 300px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-button.submit-btn {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  background-color: #4caf50;
-  color: #fff;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-button {
-  background-color: #4caf50;
-}
-
-button.submit-btn:hover {
-  background-color: #45a049;
-}
-
-.error {
-  color: red;
-  font-size: 1rem;
-  margin-bottom: 10px;
+.login-button button {
+  border-radius: 18px;
+  width: 150px;
 }
