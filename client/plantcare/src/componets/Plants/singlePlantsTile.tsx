@@ -19,7 +19,7 @@ function SinglePlantTile() {
     return <h2>Loading plant details...</h2>;
   }
 
-  const plantId = parseInt(id!, 10);
+  const plantId =id!;
   const plant = plants.find((plant) => plant.id === plantId);
 
   if (!plant) {
@@ -39,6 +39,10 @@ function SinglePlantTile() {
       navigate('/my-plants'); 
     }
   };
+  
+  const handleVRTest = () => {
+    navigate(`/ar-view/${plantId}`);
+  };
 
   return (
     <div className="single-plant-container">
@@ -51,7 +55,7 @@ function SinglePlantTile() {
       <div className="plant-details-actions">
             <button className="buy-button">Buy</button>
             <button className="own-button" onClick={handleOwnPlant}>Own</button>
-            <button className="vr-test">VR Test</button>
+            <button className="vr-test" onClick={handleVRTest}>VR Test</button>
           </div>
     </div>
   );

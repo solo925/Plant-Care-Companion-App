@@ -1,5 +1,6 @@
 .homepage {
   display: flex;
+  box-sizing: border-box;
 }
 
 .main-content {
@@ -12,13 +13,14 @@
 .header {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 0 !important;
   justify-content: right;
   align-self: start;
 }
 .header h1 {
   font-size: 1.8rem;
   margin-left: 20px;
+  margin-top: 0px !important;
 }
 .header p {
   align-self: start;
@@ -35,17 +37,67 @@
   gap: 20px;
 }
 
-.plant-gallery,
 .activities,
-.forum-feed,
-.discussion {
+.forum-feed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background: rgb(195, 224, 195);
   padding: 15px;
   border-radius: 8px;
   margin: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  width: 600px;
 }
 
+.discussion {
+  display: flex;
+  flex-direction: column;
+  width: 620px;
+  box-sizing: border-box;
+}
+.discussion-card {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  background: rgb(154, 202, 154);
+  padding: 0px;
+  border-radius: 8px;
+  margin: 20px 0px 0px 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  width: 600px;
+  height: 250px;
+}
+.plant-gallery {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-self: start;
+  border-radius: 8px;
+  gap: 20px;
+  box-sizing: border-box;
+  width: 600px;
+  margin-left: 20px;
+}
+.card-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+  align-items: start;
+}
+.card-column h3 {
+  justify-self: left;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.join-button button {
+  border-radius: 8px;
+  color: green;
+}
 .activities {
   margin-top: 20px;
   display: flex;
@@ -71,36 +123,28 @@
   cursor: pointer;
 }
 
-.plant-gallery {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  height: 150px;
-}
-
 .section-title {
   display: flex;
   font-size: medium;
   color: black;
   justify-self: left;
-  margin-left: 20px;
+  margin-left: 0px;
 }
 
 .images {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  margin-left: 20px;
+  padding: 0;
+  justify-content: space-between;
   margin-bottom: 50px;
-  justify-self: left;
 }
 
 .images button {
   color: white;
-  background-color: #4caf50;
-  width: 80px;
-  height: 80px;
+  background-color: rgb(40, 192, 40);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
 
 .images button:hover {
@@ -110,6 +154,11 @@
 .images img {
   object-fit: cover;
   border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
+}
+.left-section {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
 }

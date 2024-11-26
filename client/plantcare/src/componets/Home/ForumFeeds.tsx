@@ -1,4 +1,3 @@
-// components/ForumFeed.tsx
 import React from "react";
 
 const ForumFeed: React.FC = () => {
