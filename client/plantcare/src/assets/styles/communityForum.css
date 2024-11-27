@@ -115,7 +115,7 @@ h3 {
 
 /* Right Sidebar: Create Post Section, Chat Page */
 .right-sidebar {
-  flex: 0 0 80px; /* Reduced width */
+  flex: 0 0 80px; /* Fixed width */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -124,6 +124,10 @@ h3 {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   gap: 1.5rem; /* Spacing between icons */
   margin-left: 1rem;
+  position: sticky; /* Ensures the sidebar stays in view */
+  top: 10px; /* Space from the top of the viewport */
+  height: fit-content; /* Shrinks to fit its content */
+  z-index: 100; /* Keeps it above other elements */
 }
 
 /* Sidebar Icon Styling */

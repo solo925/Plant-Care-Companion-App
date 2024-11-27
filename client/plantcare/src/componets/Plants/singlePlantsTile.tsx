@@ -19,7 +19,7 @@ function SinglePlantTile() {
     return <h2>Loading plant details...</h2>;
   }
 
-  const plantId =id!;
+  const plantId =parseInt(id!,10);
   const plant = plants.find((plant) => plant.id === plantId);
 
   if (!plant) {
@@ -41,7 +41,7 @@ function SinglePlantTile() {
   };
   
   const handleVRTest = () => {
-    navigate(`/ar-view/${plantId}`);
+    navigate('/ar-view');
   };
 
   return (

@@ -1,5 +1,7 @@
 import React from "react";
 import "../../assets//styles/Homepage.css";
+import Footer from "../../componets/Home/Footer";
+import ForumFeed from "../../componets/Home/ForumFeeds";
 import Header from "../../componets/Home/Header";
 import PlantGallery from "../../componets/Home/PkantGallary";
 import Sidebar from "../../componets/Home/Sidebar";
@@ -16,9 +18,13 @@ const HomePage: React.FC = () => {
             <PlantGallery />
             <TodayDiscussion />
           </div>
-      
+          <div className="right-section">
+            <ForumFeed/>
+            </div>
         </div>
-          {/* <Activities /> */}
+        <div className="footer">
+          <Footer />
+        </div>
       </div>
     </div>
   );

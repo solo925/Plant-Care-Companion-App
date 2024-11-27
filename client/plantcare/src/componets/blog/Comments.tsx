@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { commentTypes } from '../../Types';
-import "../../assets/styles/comments.css";
+import '../../assets/styles/comments.css';
 
 interface CommentsProps {
   postId?: number;
-  comment?: commentTypes;
 }
 
-const Comments: React.FC<CommentsProps> = ({ postId, comment }) => {
-  const [comments, setComments] = useState<commentTypes[]>(comment ? [comment] : []);
+const Comments: React.FC<CommentsProps> = ({ postId }) => {
+  const [comments, setComments] = useState<commentTypes[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [newComment, setNewComment] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     if (!postId) return;
@@ -41,8 +42,57 @@ const Comments: React.FC<CommentsProps> = ({ postId, comment }) => {
     fetchComments();
   }, [postId]);
 
+  const handleCommentSubmit = async () => {
+    if (!newComment.trim() || !postId) return;
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          postId,
+          content: newComment,
+        }),
+      });
+
+      if (response.ok) {
+        const savedComment = await response.json();
+        setComments((prev) => [...prev, savedComment]); // Update state with new comment
+        setNewComment(''); 
+      } else {
+        console.error('Failed to submit comment:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleCommentSubmit();
+    }
+  };
+
   return (
     <div className="comments-section">
+      <div className="comment-input-section">
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          onKeyDown={handleKeyPress}
+          disabled={isSubmitting}
+          className="comment-input"
+        />
+      </div>
+
       {isLoading ? (
         <p>Loading comments...</p>
       ) : (

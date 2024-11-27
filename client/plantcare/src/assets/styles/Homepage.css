@@ -1,8 +1,16 @@
 .homepage {
   display: flex;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  height: fit-content;
 }
 
+.action-button {
+  width: 100px;
+  height: 50px;
+  color: black;
+  background-color: white;
+}
 .main-content {
   display: flex;
   flex-direction: column;
@@ -10,25 +18,67 @@
   box-sizing: border-box;
 }
 
+.dis-card {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  justify-content: left;
+}
+.dis-card h3 {
+  justify-self: start;
+  display: flex;
+  justify-content: left;
+  font-size: medium;
+}
+.discard p {
+  margin-bottom: 20px;
+}
 .header {
   display: flex;
   flex-direction: column;
-  margin: 0 !important;
-  justify-content: right;
-  align-self: start;
-}
-.header h1 {
-  font-size: 1.8rem;
-  margin-left: 20px;
-  margin-top: 0px !important;
-}
-.header p {
-  align-self: start;
-  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #eaf7e5; /* Optional background for the header */
+  box-sizing: border-box;
 }
 
-.header-title {
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* Ensure the images span the full width */
+}
+
+.header-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.header-img.start {
+  align-self: flex-start; /* Align the first image to the start */
+}
+
+.header-img.end {
+  align-self: flex-end; /* Align the second image to the end */
+}
+
+.header-text {
+  font-size: 1.8rem;
+  color: #45a049;
+  text-align: center;
+  flex-grow: 1; /* Ensures the text occupies available space */
+  margin: 0 20px; /* Add spacing between text and images */
+}
+
+.header p {
   font-size: 1rem;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .dashboard {
@@ -37,19 +87,67 @@
   gap: 20px;
 }
 
-.activities,
+.forum-card1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limit card width */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.forum-card1 h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.forum-card1 button {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
+}
+
+.forum-card1 button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.image-container {
+  width: 100%;
+  max-width: 300px; /* Limit image width */
+  height: 200px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .forum-feed {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background: rgb(195, 224, 195);
   padding: 15px;
   border-radius: 8px;
-  margin: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
   box-sizing: border-box;
-  width: 600px;
+  flex: 1;
+  height: 100%;
 }
 
 .discussion {
@@ -62,14 +160,14 @@
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  background: rgb(154, 202, 154);
+  background: #eaf7e5;
   padding: 0px;
   border-radius: 8px;
   margin: 20px 0px 0px 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   width: 600px;
-  height: 250px;
+  height: 200px;
 }
 .plant-gallery {
   justify-content: center;
@@ -97,30 +195,6 @@
 .join-button button {
   border-radius: 8px;
   color: green;
-}
-.activities {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  align-items: center;
-  width: 620px;
-}
-.activities h3 {
-  font-size: medium;
-  font-weight: 300;
-}
-
-.activities .activity-icons button {
-  background: #4caf50;
-  color: white;
-  margin: 5px;
-  padding: 10px 20px;
-  border-radius: 50%;
-  border: none;
-  height: 90px;
-  width: 90px;
-  cursor: pointer;
 }
 
 .section-title {
@@ -157,8 +231,58 @@
   width: 70px;
   height: 70px;
 }
-.left-section {
-  padding: 0;
-  margin-left: 0;
-  margin-right: 0;
+.footer {
+  margin-top: 30px;
+  background-color: #eaf7e5;
+}
+
+.dashboard-link:hover .dashboard-header {
+  color: green; /* Green hover effect for text */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.dashboard-header {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: #4caf50;
+}
+
+.dashboard-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limit card width */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-decoration: none; /* Removes underline */
+  color: inherit;
+  margin-top: 20px;
+}
+
+.header img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  align-self: flex-end;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.s-link {
+  text-decoration: none;
+  color: #45a049;
 }

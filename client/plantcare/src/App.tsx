@@ -21,6 +21,7 @@ import HealthHistoryPage from './pages/Health/HealthHistory'
 import TrackHealthPage from './pages/Health/TrackHealthPage'
 import HomePage from './pages/Home'
 import Landing from './pages/Home/landing'
+import UserProfile from './pages/UserProfile'
 import CommunityForumPage from './pages/communityForum'
 import PlantCareTipsPage from './pages/plantCaretips'
 import CareReminderPage from './pages/plantCaretips/CareReminder'
@@ -48,6 +49,7 @@ function App() {
           <Route path="/track-health/:plantId" element={<TrackHealthPage />} />
           <Route path="/health-history/:plantId" element={<HealthHistoryPage />} />
           <Route path="/ar-view" element={<ARViewPage />} />
+          <Route path="/profile" element={<UserProfile/>} />
     </Routes>
     </Fragment>
   )

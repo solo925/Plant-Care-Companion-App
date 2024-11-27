@@ -6,9 +6,52 @@
   box-sizing: border-box;
   max-width: 15vw;
   height: 100vh;
+  position: sticky;
+  top: 0;
 }
+
 .sidebar-title {
   color: #4caf50;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-profile .icon {
+  font-size: 24px;
+  color: #4caf50;
+  margin-right: 10px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-link {
+  font-size: 0.9rem;
+  color: #4caf50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.profile-link:hover {
+  color: #2e7d32;
 }
 
 .sidebar ul {
@@ -20,45 +63,61 @@
   margin: 20px;
 }
 
-.sidebar .icon {
-  font-size: 24px;
-  color: #4caf50;
-  cursor: pointer;
-}
-
-.sidebar-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-  margin-top: 0;
-}
-
 .sidebar ul li {
   margin: 5px;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
+  align-items: center;
 }
 
 .sidebar ul li .icon {
-  margin: 0px;
+  font-size: 24px;
+  color: #4caf50;
+  margin-right: 10px;
+}
+
+.sidebar ul li .s-link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li .s-link:hover {
+  color: #4caf50;
 }
 
 .down {
+  margin-top: auto; /* Pushes the settings and sign-out to the bottom */
   display: flex;
   flex-direction: column;
-  margin: 200px 0;
   padding: 0;
   gap: 18px;
+}
+
+.down ul {
+  list-style: none;
+  padding: 0;
+}
+
+.down ul li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
 }
 
 .down li .icon-down {
   font-size: 24px;
   color: #4caf50;
-  cursor: pointer;
+  margin-right: 10px;
 }
-.dowm li {
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+
+.down li .s-link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.down li .s-link:hover {
+  color: #4caf50;
 }

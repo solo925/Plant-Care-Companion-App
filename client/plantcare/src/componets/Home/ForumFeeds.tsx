@@ -1,21 +1,29 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import mira from '../../assets/mira.jpg';
 
 const ForumFeed: React.FC = () => {
+  const navigate = useNavigate();
+  const handleNavigateToplnats = () => {
+    navigate('/plants')
+    
+  }
   return (
     <section className="forum-feed">
-      <div className="quiz-section">
-        <h3>Daily plant quiz challenge!</h3>
-        <button className="quiz-button">Start</button>
+      <div className="forum-card1">
+        <h2>Comprehensive plants Database</h2>
+        <div className="image-container">
+          <img src={mira} alt="plants" />
+        </div>
+        <button onClick={handleNavigateToplnats}>Explore</button>
       </div>
-      <div className="contributors">
-        <h4>Top Contributors</h4>
-        <ul>
-          <li>#201 Roots - Healthy</li>
-          <li>#202 Plant - Community</li>
-          <li>#203 Botanical - Plant</li>
-          <li>#207 Plant - Plant</li>
-        </ul>
-      </div>
+
+      <Link to="/dashboard" className="dashboard-link">
+        <h2 className="dashboard-header">Visit your Dashboard</h2>
+      </Link>
+      
+
+
     </section>
   );
 };

@@ -23,7 +23,7 @@ const CommunityForumPage = () => {
 
         {/* Right Sidebar */}
         <div className="right-sidebar">
-          <a href="/" className="sidebar-icon">
+          <a href="/home" className="sidebar-icon">
             <FaHome />
             <span>Home</span>
           </a>

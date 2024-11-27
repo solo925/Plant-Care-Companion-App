@@ -10,11 +10,13 @@ const TodayDiscussion: React.FC = () => {
         </div>
         <button className="action-button">Try AR</button>
       </div>
-      {/* <div className="discussion-card">
+      <div className="discussion-card">
+        <div className="dis-card">
         <h3>Care Guide</h3>
-        <p>Nutrient Needs</p>
+          <p>A comprehensive guide to plant care</p>
+        </div>
         <button className="action-button">Explore</button>
-      </div> */}
+      </div>
     </section>
   );
 };

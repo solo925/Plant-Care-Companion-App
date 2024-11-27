@@ -1,43 +1,50 @@
 import React from "react";
-import { FaBell, FaCog, FaHeartbeat, FaHome, FaLeaf, FaSignOutAlt } from "react-icons/fa";
+import { FaBell, FaCog, FaHome, FaSignOutAlt, FaUser, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import '../../assets/styles/sudosidebar.css';
 
 const Sidebar: React.FC = () => {
+
+ 
   return (
     <aside className="sidebar">
       <h3 className="sidebar-title">Plant Database</h3>
+
       <nav>
         <ul>
           <li>
             <FaHome className="icon" />
-            Home
+            <Link to="/home" className="s-link">Home</Link>
+          </li>
+          <li>
+            <FaUser className="icon" />
+            <Link to="/profile" className="s-link">Profile</Link>
           </li>
           <li>
             <FaBell className="icon" />
-            Reminders
+            <Link to="/reminders" className="s-link">Reminders</Link>
           </li>
           <li>
-            <FaLeaf className="icon" />
-            Community
+            <FaUsers className="icon" />
+            <Link to="/community" className="s-link">Community</Link>
           </li>
-          <li>
-            <FaHeartbeat className="icon" />
-            Track Health
-          </li>
-          <div className="down">
+        </ul>
+      </nav>
+
+      <div className="down">
+        <ul>
           <li>
             <FaCog className="icon-down" />
-            Settings
+            <Link to="/settings" className="s-link">Settings</Link>
           </li>
           <li>
             <FaSignOutAlt className="icon-down" />
-            Sign Out
-            </li>
-          </div>
+            <Link to="/logout" className="s-link">Sign Out</Link>
+          </li>
         </ul>
-      </nav>
+      </div>
     </aside>
-  );
+  )
 };
 
 export default Sidebar;
