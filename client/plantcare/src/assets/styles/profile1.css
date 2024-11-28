@@ -60,7 +60,7 @@ button.cancel-edit {
 .edit-profile-button,
 .delete-account-button {
   padding: 10px;
-  background-color: #ff9800;
+  background-color: green;
   border-radius: 5px;
   color: white;
   border: none;

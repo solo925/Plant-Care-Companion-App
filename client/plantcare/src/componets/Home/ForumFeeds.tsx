@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import mira from '../../assets/mira.jpg';
 
 const ForumFeed: React.FC = () => {
@@ -17,11 +17,6 @@ const ForumFeed: React.FC = () => {
         </div>
         <button onClick={handleNavigateToplnats}>Explore</button>
       </div>
-
-      <Link to="/dashboard" className="dashboard-link">
-        <h2 className="dashboard-header">Visit your Dashboard</h2>
-      </Link>
-      
 
 
     </section>

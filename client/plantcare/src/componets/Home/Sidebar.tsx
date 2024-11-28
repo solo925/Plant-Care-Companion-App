@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBell, FaCog, FaHome, FaSignOutAlt, FaUser, FaUsers } from "react-icons/fa";
+import { FaBell, FaCog, FaHome, FaSignOutAlt, FaTachometerAlt, FaUser, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import '../../assets/styles/sudosidebar.css';
 
@@ -19,6 +19,10 @@ const Sidebar: React.FC = () => {
           <li>
             <FaUser className="icon" />
             <Link to="/profile" className="s-link">Profile</Link>
+          </li>
+          <li>
+            <FaTachometerAlt className="icon" />
+            <Link to="/dashboard" className="s-link">Dashboard</Link> 
           </li>
           <li>
             <FaBell className="icon" />
