@@ -7,17 +7,24 @@
   background-color: #f7f7f7;
   padding: 20px;
 }
+
 .login-input {
   display: flex;
-  align-items: baseline;
+  align-items: baseline; /* Align input text at the base */
   justify-content: center;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  margin-bottom: 50px;
-  border-color: green;
   width: 70%;
-  padding: 12px;
+  padding: 12px 0; /* Adjust padding for better alignment */
+  margin-bottom: 50px;
+  border: none; /* Remove all borders */
+  border-bottom: 2px solid green; /* Add green bottom border only */
+  outline: none; /* Remove focus outline */
+  background-color: transparent; /* Transparent background */
+  font-size: 16px; /* Ensure consistent font size */
+}
+
+.login-input:focus {
+  border-bottom: 3px solid darkgreen; /* Thicker bottom border on focus */
+  outline: none; /* No focus outline */
 }
 
 .loginform {
@@ -29,6 +36,7 @@
   height: 90vh;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
 .loginform h2 {
   color: green;
 }

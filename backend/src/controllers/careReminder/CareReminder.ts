@@ -82,7 +82,7 @@ CareReminderController.get('/plant/:plantId', async (req: Request, res: Response
 
 
 CareReminderController.get('/user/reminders', verifyToken, async (req: R1, res: Response): Promise<void> => {
-    const userId = req.user?.id; // Ensure userId is coming from the authenticated user
+    const userId = req.user?.id;
     console.log(userId);
 
     if (!userId) {
@@ -98,26 +98,27 @@ CareReminderController.get('/user/reminders', verifyToken, async (req: R1, res: 
                     id: userId,
                 },
             },
-            relations: ['owners'], // Fetch the owners relation to ensure it works
+            relations: ['owners'],
         });
 
-        // If the user doesn't own any plants
+
         if (userOwnedPlants.length === 0) {
             res.status(200).json({ message: 'No plants or reminders found.' });
             return;
         }
 
-        // Get the plant ids of the owned plants
+
         const plantIds = userOwnedPlants.map((plant) => plant.id);
 
-        // Fetch the reminders for the plants owned by the user
+
         const reminders = await AppDataSource.getRepository(CareReminder).find({
             where: { plantId: In(plantIds) },
         });
 
-        // Combine plant details with their reminders
+
         const remindersWithPlantDetails = reminders.map((reminder) => {
-            const plant = userOwnedPlants.find((p) => parseInt(p.id, 10) === reminder.plantId); // Match plant by id
+            const plant = userOwnedPlants.find((p) => parseInt(p.id, 10) === reminder.plantId);
+
             return {
                 reminderId: reminder.id,
                 task: reminder.description,

@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import '../../assets/styles/registration.css';
 import { PlantCareContext } from "../../context";
 
 function Register() {

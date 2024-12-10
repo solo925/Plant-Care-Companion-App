@@ -61,7 +61,7 @@ function Login({ setLoading, setUser }: LoginProps) {
             <div className="login-button">
                 <button type="submit">Login</button>
                 </div>
-                <p>Don't have an account? <a href="">Register</a></p>
+                <p>Don't have an account? <a href="./register">Register</a></p>
             </div>
         </form>
     );
