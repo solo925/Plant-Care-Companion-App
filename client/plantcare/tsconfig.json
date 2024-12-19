@@ -1,4 +1,14 @@
 {
+  "compilerOptions": {
+    "target": "ES6", // or higher
+    "module": "ESNext", // Ensure ESM support
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist" // Optional, for compiled files
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
