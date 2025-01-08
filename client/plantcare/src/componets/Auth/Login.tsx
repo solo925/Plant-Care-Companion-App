@@ -5,19 +5,21 @@ interface LoginProps {
     setLoading: (loading: boolean) => void;
     setUser: React.Dispatch<React.SetStateAction<userTypes | null | undefined>>;
 }
+const front = "http://localhost:5173"
+const backend = "http://localhost:3000"
 
 function Login({ setLoading, setUser }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState<string | null>(null); // Added error state
+    const [error, setError] = useState<string | null>(null); 
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setLoading(true);
-            setError(null); // Reset error on new attempt
+            setError(null); 
             const token = sessionStorage.getItem('token'); 
-            const response = await fetch('http://localhost:3000/api/v1/auth/login', {
+            const response = await fetch(`${backend}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ function Login({ setLoading, setUser }: LoginProps) {
             if (response.ok) {
                 setUser(data.user);
                 sessionStorage.setItem('token', data.token); 
-                window.location.href = 'http://localhost:5173/home'; 
+                window.location.href = `${front}/home`; 
             } else {
                 setError(data.message || 'Failed to log in'); 
             }

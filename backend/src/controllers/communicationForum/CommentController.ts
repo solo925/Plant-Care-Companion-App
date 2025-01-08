@@ -20,30 +20,26 @@ CommentController.post('/:postId', verifyToken, upload.single('image'), async (r
     }
 
     try {
-        const commentRepository = AppDataSource.getRepository(Comment);
-        const postRepository = AppDataSource.getRepository(Post);
-
-        const post = await postRepository.findOne({ where: { id: parseInt(postId) } });
-        if (!post) {
+        const postExists = await AppDataSource.getRepository(Post)
+        .exists({ where: { id: parseInt(postId) } });
+        if (!postExists) {
             res.status(404).json({ message: 'Post not found' });
             return;
         }
 
-        const newComment = commentRepository.create({
+        const newComment = await AppDataSource.getRepository(Comment).save({
             content,
-            post,
+            post: { id: parseInt(postId) },
             author: { id: userId },
-            image: image ? image.path : undefined,
+            image: image?.path,
         });
-
-        await commentRepository.save(newComment);
 
         res.status(201).json({
             message: 'Comment posted successfully',
             comment: newComment,
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error creating comment:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -51,30 +47,35 @@ CommentController.post('/:postId', verifyToken, upload.single('image'), async (r
 
 CommentController.get('/:postId', async (req: Request, res: Response): Promise<void> => {
     const { postId } = req.params;
+    const { page = 1, limit = 10 } = req.query;
 
     try {
         const commentRepository = AppDataSource.getRepository(Comment);
-        const comments = await commentRepository.find({
+        const [comments, total] = await commentRepository.findAndCount({
             where: { post: { id: parseInt(postId) } },
             relations: ['author'],
+            take: parseInt(limit as string),
+            skip: (parseInt(page as string) - 1) * parseInt(limit as string),
+            order: { createdAt: 'DESC' },
         });
 
-
-        const responseComments = comments.map(comment => ({
-            ...comment,
-            author: {
-                name: comment.author.name,
-                photo: comment.author.profilePhoto,
-            }
-        }));
-
-        res.status(200).json(responseComments);
+        res.status(200).json({
+            total,
+            page: parseInt(page as string),
+            limit: parseInt(limit as string),
+            comments: comments.map(comment => ({
+                ...comment,
+                author: {
+                    name: comment.author.name,
+                    photo: comment.author.profilePhoto,
+                },
+            })),
+        });
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching comments:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 
 CommentController.put('/:id', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
@@ -83,42 +84,44 @@ CommentController.put('/:id', verifyToken, async (req: CustomRequest, res: Respo
     const userId = req.user?.id;
 
     try {
-        const commentRepository = AppDataSource.getRepository(Comment);
-        const comment = await commentRepository.findOne({ where: { id: parseInt(id), author: { id: userId } } });
+        const result = await AppDataSource.getRepository(Comment)
+            .createQueryBuilder()
+            .update(Comment)
+            .set({ content })
+            .where("id = :id AND authorId = :userId", { id: parseInt(id), userId })
+            .execute();
 
-        if (!comment) {
+        if (result.affected === 0) {
             res.status(404).json({ message: 'Comment not found or not authorized' });
             return;
         }
 
-        comment.content = content || comment.content;
-
-        await commentRepository.save(comment);
-        res.status(200).json(comment);
+        res.status(200).json({ message: 'Comment updated successfully' });
     } catch (error) {
-        console.error(error);
+        console.error('Error updating comment:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 CommentController.delete('/:id', verifyToken, async (req: CustomRequest, res: Response): Promise<void> => {
     const { id } = req.params;
     const userId = req.user?.id;
 
     try {
-        const commentRepository = AppDataSource.getRepository(Comment);
-        const comment = await commentRepository.findOne({ where: { id: parseInt(id), author: { id: userId } } });
+        const result = await AppDataSource.getRepository(Comment)
+            .createQueryBuilder()
+            .delete()
+            .where("id = :id AND authorId = :userId", { id: parseInt(id), userId })
+            .execute();
 
-        if (!comment) {
+        if (result.affected === 0) {
             res.status(404).json({ message: 'Comment not found or not authorized' });
             return;
         }
 
-        await commentRepository.remove(comment);
         res.status(204).send();
     } catch (error) {
-        console.error(error);
+        console.error('Error deleting comment:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });

@@ -19,7 +19,12 @@ LoginController.post('/', async (req: Request, res: Response): Promise<void> => 
 
     try {
         const userRepository = AppDataSource.getRepository(User);
-        const user = await userRepository.findOne({ where: { email } });
+        
+        // const user = await userRepository.findOne({ where: { email } });
+        const user = await userRepository
+        .createQueryBuilder('user')
+        .where('user.email = :email', { email })
+        .getOne();
 
         if (!user) {
             res.status(400).json({ message: 'Invalid email or password' });

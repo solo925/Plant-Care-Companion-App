@@ -6,6 +6,10 @@ import { PlantCareContext, PlantCareContextProps } from '../../context';
 import { postTypes } from '../../Types';
 import formatTimeAgo from '../../Utils';
 
+
+const front = "http://localhost:5173"
+const backend = "http://localhost:3000"
+
 interface BlogPostCardProps {
   post: postTypes;
   currentUserPhoto?: string; 
@@ -15,7 +19,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
   const [likes, setLikes] = useState<number>(post.likes || 0);
   const [liked, setLiked] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
-  const [comments, setComments] = useState<any[]>([]);  // Initialize comments as an empty array
+  const [comments, setComments] = useState<any[]>([]); 
   const context = useContext(PlantCareContext) as PlantCareContextProps;
   const { user } = context || {};
 
@@ -23,7 +27,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/comments/${post.id}`);
+        const response = await fetch(`${backend}/api/v1/comments/${post.id}`);
         if (response.ok) {
           const data = await response.json();
           setComments(data.comments || []); 
@@ -50,7 +54,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
   const handleCommentKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && comment.trim()) {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/comments/${post.id}`, {
+        const response = await fetch(`${backend}/api/v1/comments/${post.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -78,7 +82,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
     <div className="blog-post-card">
       <div className="author-profile">
         <img
-          src={`http://localhost:3000/${post.author.profilePhoto || 'uploads/default-placeholder.png'}`}
+          src={`${backend}/${post.author.profilePhoto || 'uploads/default-placeholder.png'}`}
           alt={post.author.name}
           className="author-avatar"
           onError={(e) => {

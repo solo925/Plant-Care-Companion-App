@@ -12,8 +12,9 @@ import mainRoute from "./routes/main";
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    // credentials: true,  // allow cookies if using them
 }));
 
 app.use(cookieParser());
@@ -38,7 +39,8 @@ const io = new Server(server, {
     cors: {
         origin: "http://localhost:5173",
         methods: ["GET", "POST"],
-        credentials: true,
+        // credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
     }
 });
 
@@ -65,11 +67,19 @@ io.on('connection', (socket) => {
 
 
         const messageRepository = AppDataSource.getRepository(Message);
-        const messages = await messageRepository.find({
-            where: { room: { id: roomId } },
-            relations: ['masageuser', 'room'],
-            order: { createdAt: 'ASC' }
-        });
+        // const messages = await messageRepository.find({
+        //     where: { room: { id: roomId } },
+        //     relations: ['masageuser', 'room'],
+        //     order: { createdAt: 'ASC' }
+        // });
+
+        const messages = await messageRepository
+        .createQueryBuilder('message')
+        .leftJoinAndSelect('message.masageuser', 'user')
+        .leftJoinAndSelect('message.room', 'room')
+        .where('message.roomId = :roomId', { roomId })
+        .orderBy('message.createdAt', 'ASC')
+        .getMany();
 
 
         socket.emit('loadMessages', messages);

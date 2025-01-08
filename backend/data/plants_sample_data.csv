@@ -1,6 +1,0 @@
-id,name,species,wateringFrequency,lastWatered,careInstructions,commonProblems,fertilizingFrequency,lastFertilized,image,user
-1,Spider Plant,Chlorophytum comosum,weekly,2024-10-20,"Keep in bright, indirect sunlight. Water when the top inch of soil is dry.","Brown tips on leaves, yellowing leaves","monthly, during growing season",2024-10-01,https://example.com/images/spider_plant.jpg,1
-2,Snake Plant,Sansevieria trifasciata,bi-weekly,2024-10-15,Thrives in low light; let soil dry completely between waterings.,Leaf tips may turn brown if overwatered.,quarterly,2024-09-15,https://example.com/images/snake_plant.jpg,1
-3,Pothos,Epipremnum aureum,weekly,2024-10-18,"Tolerates low light but prefers bright, indirect light. Water when soil is dry.",Yellowing leaves indicate overwatering.,monthly,2024-10-05,https://example.com/images/pothos.jpg,1
-4,Peace Lily,Spathiphyllum,weekly,2024-10-19,"Prefers low to medium, indirect light. Keep soil moist but not soggy.",Brown tips can indicate underwatering or low humidity.,monthly,2024-10-10,https://example.com/images/peace_lily.jpg,1
-5,Fiddle Leaf Fig,Ficus lyrata,bi-weekly,2024-10-16,"Needs bright, indirect light. Rotate occasionally for even growth.",Dropping leaves can indicate overwatering or temperature changes.,bi-monthly,2024-08-15,https://example.com/images/fiddle_leaf_fig.jpg,1

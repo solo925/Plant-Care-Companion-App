@@ -2,6 +2,10 @@ import { useContext, useState } from "react";
 import '../../assets/styles/registration.css';
 import { PlantCareContext } from "../../context";
 
+
+const front = "http://localhost:5173"
+const backend = "http://localhost:3000"
+
 function Register() {
     const context = useContext(PlantCareContext);
 
@@ -21,7 +25,7 @@ function Register() {
             setLoading(true);
             setError(null); 
 
-            const response = await fetch('http://localhost:3000/api/v1/auth/register', {
+            const response = await fetch(`${backend}/api/v1/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,7 +45,7 @@ function Register() {
                 const data = await response.json();
                 setUser(data.user);
                 localStorage.setItem('token', data.token);
-                window.location.href = 'http://localhost:5173/login';
+                window.location.href = `${front}/login`;
             }
         } catch (err) {
             setError('An unexpected error occurred');
