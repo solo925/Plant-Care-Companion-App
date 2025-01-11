@@ -17,49 +17,40 @@ export interface R extends Request{
 
 toggleLikeControler.post('/:postId/like', verifyToken, async (req: R, res: Response): Promise<void> => {
     const { postId } = req.params;
-    const userId = req.user?.id;  
-
-    const postRepository = AppDataSource.getRepository(Post);
-    const userRepository = AppDataSource.getRepository(User);
+    const userId = req.user?.id;
+    // hello change this
 
     try {
-        const post = await postRepository.findOne({
-            where: { id: Number(postId) }, 
-            relations: ["likedBy"], 
-        });
-
+        // Check Cache first
+        let post = await getCachedPost(Number(postId));
         if (!post) {
-            res.status(404).json({ message: "Post not found" });
-            return;
+            const postRepository = AppDataSource.getRepository(Post);
+            post = await postRepository.findOne({ where: { id: Number(postId) }, relations: ['likedBy'] });
+            if (!post) {
+                res.status(404).json({ message: "Post not found" });
+                return;
+            }
+            // Cache the post
+            await cachePopularPost(Number(postId), post);
         }
 
-        const user = await userRepository.findOne({ where: { id: userId } });
-
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
-            return;
+        // Check if the like count is cached
+        let cachedLikes = await getCachedLikesCount(Number(postId));
+        if (cachedLikes !== null) {
+            post.likes = cachedLikes;
         }
 
-        const alreadyLiked = post.likedBy.some((u) => u.id === user.id);
+        // Check Rate Limiting
+        await rateLimitMiddleware(req, res, () => {});
 
-        if (alreadyLiked) {
-            
-            post.likedBy = post.likedBy.filter((u) => u.id !== user.id);
-            post.likes = Math.max(0, post.likes - 1);
-        } else {
-           
-            post.likedBy.push(user);
-            post.likes += 1;
-        }
-
-        await postRepository.save(post);
+        // Add the action to the queue
+        await addPostActionToQueue(Number(postId), 'like', userId!);
 
         res.json({ likes: post.likes });
-        return;
+
     } catch (error) {
         console.error("Error toggling like:", error);
         res.status(500).json({ message: "Error toggling like" });
-        return;
     }
 });
 
