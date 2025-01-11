@@ -26,7 +26,8 @@ export class User {
     profilePhoto?: string;
 
 
-
+    @ManyToMany(() => Post, (post) => post.likedBy)
+    likedPosts!: Post[]; 
 
     @Column({ nullable: true })
     resetPasswordToken?: string;

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 import { Comment } from "./Comment";
 import { Room } from "./Room";
 import { User } from "./User";
@@ -20,7 +20,6 @@ export class Post {
     @Column({ nullable: true })
     imageUrl?: string;
 
-
     @ManyToOne(() => User, (user) => user.posts)
     author!: User;
 
@@ -29,4 +28,11 @@ export class Post {
 
     @OneToMany(() => Comment, (comment) => comment.post)
     comments!: Comment[];
+
+    @Column({ default: 0 })
+    likes!: number;
+
+    @ManyToMany(() => User, (user) => user.likedPosts)
+    @JoinTable()
+    likedBy!: User[]; 
 }

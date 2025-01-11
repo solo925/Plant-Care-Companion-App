@@ -40,6 +40,7 @@
   "dependencies": {
     "@xata.io/client": "^0.0.0-next.v403cdd55cb26b69c074dbc07b44daa0c2a0a77b6",
     "bcrypt": "^5.1.1",
+    "bull": "^4.16.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.7",
@@ -54,6 +55,7 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "pg": "^8.13.0",
+    "redis": "^4.7.0",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6",

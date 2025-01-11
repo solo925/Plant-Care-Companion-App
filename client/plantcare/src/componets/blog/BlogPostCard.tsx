@@ -6,9 +6,8 @@ import { PlantCareContext, PlantCareContextProps } from '../../context';
 import { postTypes } from '../../Types';
 import formatTimeAgo from '../../Utils';
 
-
 const front = "http://localhost:5173"
-const backend = "http://localhost:3000"
+const backend = "http://localhost:3000/api/v1"
 
 interface BlogPostCardProps {
   post: postTypes;
@@ -23,7 +22,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
   const context = useContext(PlantCareContext) as PlantCareContextProps;
   const { user } = context || {};
 
-  
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -40,11 +38,31 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
     };
 
     fetchComments();
-  }, [post.id]); 
+  }, [post.id]);
 
-  const toggleLike = () => {
-    setLiked(!liked);
-    setLikes(liked ? likes - 1 : likes + 1);
+  const toggleLike = async () => {
+    if (!user) return;
+
+    try {
+      const response = await fetch(`${backend}/likes/${post.id}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`, 
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLikes(data.likes); 
+        setLiked(!liked); 
+      } else {
+        console.error('Failed to toggle like:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
   };
 
   const handleRepost = () => {
@@ -117,7 +135,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
         Read More
       </Link>
 
-      
       <div className="post-actions">
         <div className="like-section" onClick={toggleLike}>
           <FaThumbsUp className={`like-icon ${liked ? 'liked' : ''}`} />
@@ -133,7 +150,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, currentUserPhoto }) =
         </div>
       </div>
 
-     
       <div className="comment-input-section">
         <img
           src={`http://localhost:3000/${ user?.profilePhoto || 'uploads/default-placeholder.png'}`}

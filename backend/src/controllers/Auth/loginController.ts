@@ -23,7 +23,7 @@ LoginController.post('/', async (req: Request, res: Response): Promise<void> => 
         // const user = await userRepository.findOne({ where: { email } });
         const user = await userRepository
         .createQueryBuilder('user')
-        .where('user.email = :email', { email })
+        .where('user.email = email', { email })
         .getOne();
 
         if (!user) {

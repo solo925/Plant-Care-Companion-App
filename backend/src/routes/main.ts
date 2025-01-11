@@ -8,6 +8,8 @@ import postRoute from "./Postroute";
 import profileRoute from "./profile";
 import roomRouter from "./roomsRoutes";
 import usersRoute from "./usersManagerRoutes";
+import likesRoute from './likes'
+
 
 
 
@@ -26,5 +28,7 @@ mainRoute.use('/messages', messageRoute)
 mainRoute.use('/users', usersRoute);
 mainRoute.use('/auth/password-reset', passwordResetRouet);
 mainRoute.use('/plant-logs', planthealhRoute)
+mainRoute.use('/likes',likesRoute)
+
 
 export default mainRoute;

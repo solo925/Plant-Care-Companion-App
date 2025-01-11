@@ -24,10 +24,10 @@ RegistrationController.post('/', async (req: Request, res: Response): Promise<vo
         const userRepository = AppDataSource.getRepository(User);
 
         // const existingUser = await userRepository.findOne({ where: { email } });
-        const existingUser = await userRepository.
-        createQueryBuilder("user")
-        .where("user.email = email")
-        .getOne()
+        const existingUser = await userRepository
+        .createQueryBuilder("user")
+        .where("user.email = :email", { email })
+        .getOne();
 
         if (existingUser) {
             res.status(400).json({ message: 'User already exists' });
