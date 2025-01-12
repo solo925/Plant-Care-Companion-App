@@ -22,8 +22,8 @@ const rateLimitMiddleware = async (
       return;
     }
 
-    const userId = req.user?.id; // Assuming `req.user` exists from previous middleware
-    const postId = req.params.postId; // Assuming `req.params.postId` exists
+    const userId = req.user?.id; 
+    const postId = req.params.postId; 
     const rateLimitKey = `rateLimit:${userId}:${postId}`;
 
     const requests = await redisClient.get(rateLimitKey);
@@ -36,11 +36,11 @@ const rateLimitMiddleware = async (
 
     await redisClient
       .multi()
-      .incr(rateLimitKey) // Increment the request count
-      .expire(rateLimitKey, 60) // Set expiration time (60 seconds)
+      .incr(rateLimitKey)
+      .expire(rateLimitKey, 60) 
       .exec();
 
-    next(); // Proceed to the next middleware
+    next(); 
   } catch (err) {
     console.error("Error in rateLimitMiddleware:", err);
     res.status(500).json({ message: "Internal Server Error" });
