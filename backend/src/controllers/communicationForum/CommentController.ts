@@ -4,6 +4,7 @@ import { CustomRequest, verifyToken } from '../../middlewares/Authmidlewares/IsA
 import { upload } from '../../middlewares/upload/UploadMiddleware';
 import { Comment } from '../../models/Comment';
 import { Post } from '../../models/Post';
+import { addPostActionToQueue } from '../../bull/job_Queue_for_post';
 
 export const CommentController = express.Router();
 
@@ -26,6 +27,7 @@ CommentController.post('/:postId', verifyToken, upload.single('image'), async (r
             res.status(404).json({ message: 'Post not found' });
             return;
         }
+        await addPostActionToQueue(Number(postId),'comments',userId);
 
         const newComment = await AppDataSource.getRepository(Comment).save({
             content,

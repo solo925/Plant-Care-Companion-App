@@ -8,16 +8,18 @@ import { AppDataSource } from "../src/config/data-source";
 import { verifyToken } from "./middlewares/Authmidlewares/IsAuthenticated";
 import { Message } from "./models/Message";
 import mainRoute from "./routes/main";
+import configureCors from "./config/corConfig";
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-    // credentials: true,  // allow cookies if using them
-}));
-
+// app.use(cors({
+//     origin: 'http://localhost:5173', 
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+//     // credentials: true,  // allow cookies if using them
+// }));
+app.use(configureCors())
 app.use(cookieParser());
+
 
 app.use(express.json());
 
@@ -35,14 +37,16 @@ AppDataSource.initialize()
     });
 
 const server = http.createServer(app);
-const io = new Server(server, {
+const io = new Server(server,
+    {
     cors: {
         origin: "http://localhost:5173",
         methods: ["GET", "POST"],
         // credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],
     }
-});
+}
+);
 
 const activeUsers = new Map<number, string>();
 
