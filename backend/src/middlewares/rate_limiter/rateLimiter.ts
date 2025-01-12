@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { createClient } from "redis";
-import { R } from "../../controllers/communicationForum/likesController";
 
 let redisClient: ReturnType<typeof createClient>;
-
 
 (async () => {
   redisClient = createClient({ url: "redis://localhost:6379" });
@@ -14,37 +12,38 @@ let redisClient: ReturnType<typeof createClient>;
 });
 
 const rateLimitMiddleware = async (
-  req: R,
+  req:any,
   res: Response,
   next: NextFunction
-) => {
-  if (!redisClient) {
-    return res.status(500).json({ message: "Redis client not initialized" });
-  }
-
-  const userId = req.user?.id;
-  const postId = req.params.postId;
-  const rateLimitKey = `rateLimit:${userId}:${postId}`;
-
+): Promise<void> => {
   try {
-   
+    if (!redisClient) {
+      res.status(500).json({ message: "Redis client not initialized" });
+      return;
+    }
+
+    const userId = req.user?.id; // Assuming `req.user` exists from previous middleware
+    const postId = req.params.postId; // Assuming `req.params.postId` exists
+    const rateLimitKey = `rateLimit:${userId}:${postId}`;
+
     const requests = await redisClient.get(rateLimitKey);
     if (requests && parseInt(requests) > 5) {
-      return res
+      res
         .status(429)
         .json({ message: "Too many requests, please try again later." });
+      return;
     }
 
     await redisClient
       .multi()
-      .incr(rateLimitKey) 
-      .expire(rateLimitKey, 60) 
+      .incr(rateLimitKey) // Increment the request count
+      .expire(rateLimitKey, 60) // Set expiration time (60 seconds)
       .exec();
 
-    next();
+    next(); // Proceed to the next middleware
   } catch (err) {
     console.error("Error in rateLimitMiddleware:", err);
-    return res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

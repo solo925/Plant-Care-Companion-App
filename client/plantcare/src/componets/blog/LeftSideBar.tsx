@@ -44,7 +44,7 @@ const LeftSidebar: React.FC = () => {
       <div className="online-users">
         <h4>Users you might share the same plant with</h4>
         <ul>
-          {onlineUsers.slice(0, showMore ? onlineUsers.length : 2).map((user: any) => (
+          {Array.isArray(onlineUsers)? onlineUsers.slice(0, showMore ? onlineUsers.length : 2).map((user: any) => (
             <li key={user.id} className="user-item">
               <img
                       src={`http://localhost:3000/${user?.profilePhoto || 'uploads/default-placeholder.png'}`}
@@ -60,7 +60,7 @@ const LeftSidebar: React.FC = () => {
                 Connect
               </button>
             </li>
-          ))}
+          )):(<p>"not an array"</p>)}
         </ul>
         {/* Show More Button */}
         {!showMore && onlineUsers.length > 5 && (

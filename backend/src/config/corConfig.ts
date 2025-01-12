@@ -4,7 +4,7 @@ export const configureCors = (): ReturnType<typeof cors> => {
   return cors({
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
       const allowedOrigins = [
-        "http://localhost:5173/", 
+        "http://localhost:5173", 
         // "https://yourcustomdomain.com", 
       ];
 

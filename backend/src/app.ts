@@ -9,15 +9,18 @@ import { verifyToken } from "./middlewares/Authmidlewares/IsAuthenticated";
 import { Message } from "./models/Message";
 import mainRoute from "./routes/main";
 import configureCors from "./config/corConfig";
+import { addTimeStamp, requestLogger } from "./middlewares/customemiddleware";
+import urlVersioning from "./middlewares/apiVersioning/apiversion";
+import rateLimitMiddleware from "./middlewares/rate_limiter/rateLimiter";
 
 const app = express();
+app.use(requestLogger);
+app.use(addTimeStamp);
 
-// app.use(cors({
-//     origin: 'http://localhost:5173', 
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-//     // credentials: true,  // allow cookies if using them
-// }));
 app.use(configureCors())
+
+app.use(urlVersioning("v1"));
+app.use(rateLimitMiddleware); 
 app.use(cookieParser());
 
 
