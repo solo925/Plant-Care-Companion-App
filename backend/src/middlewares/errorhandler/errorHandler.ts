@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { QueryFailedError } from "typeorm";
 
-// Custom APIError class
+
 export class APIError extends Error {
   public statusCode: number;
 
@@ -9,18 +9,18 @@ export class APIError extends Error {
     super(message);
     this.statusCode = statusCode;
     this.name = "APIError"; 
-    Object.setPrototypeOf(this, APIError.prototype); // Ensure proper inheritance for built-in classes
+    Object.setPrototypeOf(this, APIError.prototype); 
   }
 }
 
-// Async handler middleware
+
 export const asyncHandler =
   (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>) =>
   (req: Request, res: Response, next: NextFunction): void => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 
-// Global error handler middleware
+
 export const globalErrorHandler = (
   err: Error | APIError,
   req: Request,
@@ -36,7 +36,7 @@ export const globalErrorHandler = (
     });
   }
 
-  // Handle TypeORM query errors
+
   if (err instanceof QueryFailedError) {
     return res.status(400).json({
       status: "error",
